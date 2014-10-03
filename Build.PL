@@ -29,6 +29,7 @@ my $builder = Module::Build->new(
         'utf8'             => 0,
         'Carp'             => 0,
         'Moo'              => '1.001000',
+        'Scalar::Util'     => 0,
     },
     meta_merge => {
         resources => {

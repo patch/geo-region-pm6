@@ -2,6 +2,7 @@ package Geo::Region;
 
 use v5.8.1;
 use utf8;
+use Scalar::Util qw( weaken );
 
 use Moo;
 use namespace::clean;
@@ -9,6 +10,14 @@ use namespace::clean;
 our $VERSION = '0.00_1';
 
 my %children_of = (
+    '001' => [qw( 002 009 019 142 150 )],
+    '002' => [qw( 011 014 015 017 018 )],
+    '003' => [qw( 013 021 029 )],
+    '009' => [qw( 053 054 057 061 QO )],
+    '019' => [qw( 005 013 021 029 )],
+    '142' => [qw( 030 034 035 143 145 )],
+    '150' => [qw( 039 151 154 155 )],
+    '419' => [qw( 005 013 029 )],
     '005' => [qw( AR BO BR CL CO EC FK GF GY PE PY SR UY VE )],
     '011' => [qw( BF BJ CI CV GH GM GN GW LR ML MR NE NG SH SL SN TG )],
     '013' => [qw( BZ CR GT HN MX NI PA SV )],
@@ -42,17 +51,31 @@ has region => (
 
 has _children => (
     is      => 'lazy',
-    builder => sub { +{ map { $_ => undef } shift->countries } },
+    builder => sub {
+        my $build_children;
+        my $tmp = $build_children = sub { map {
+            exists $children_of{$_} ? ($_, $build_children->(@{$children_of{$_}})) : $_
+        } @_ };
+        weaken $build_children;
+        return [ $build_children->(shift->region) ];
+    },
+);
+
+has _contains_child => (
+    is      => 'lazy',
+    builder => sub { +{ map { $_ => 1 } @{shift->_children} } },
 );
 
 has _countries => (
     is      => 'lazy',
-    builder => sub { $children_of{shift->region} },
+    builder => sub { [
+        sort grep { !exists $children_of{$_} } @{shift->_children}
+    ] },
 );
 
 sub contains {
     my ($self, $region) = @_;
-    return exists $self->_children->{$region};
+    return exists $self->_contains_child->{$region};
 }
 
 sub countries {
