@@ -24,6 +24,14 @@ sub contains {
         && $parent_of{$region} eq $self->region;
 }
 
+sub countries {
+    my ($self) = @_;
+    return sort grep {
+        length == 2
+        && $parent_of{$_} eq $self->region
+    } keys %parent_of;
+}
+
 1;
 
 __END__
@@ -63,6 +71,8 @@ UN M.49 region code
 =over
 
 =item contains
+
+=item countries
 
 =back
 
