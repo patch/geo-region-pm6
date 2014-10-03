@@ -40,7 +40,7 @@ __END__
 
 =head1 NAME
 
-Geo::Region - Geographical Region & Territory Sets
+Geo::Region - Geographical Region Sets using UN M.49 and CLDR data
 
 =head1 VERSION
 
@@ -52,9 +52,15 @@ This document describes Geo::Region v0.00_1.
 
     $caribbean = Geo::Region->new(region => '029');
 
+    if ( $caribbean->contains('PR') ) {
+        say 'Caribbean contains Puerto Rico!';
+    }
+
+    say 'Countries in the Caribbean are: ', join(' ', $caribbean->countries);
+
 =head1 DESCRIPTION
 
-Geographical Region & Territory Sets
+Geographical Region Sets using UN M.49 and CLDR data
 
 =head2 Attributes
 
@@ -85,6 +91,8 @@ UN M.49 region code
 =item L<United Nations: UN M.49 Standard Country or Area Codes|http://unstats.un.org/unsd/methods/m49/m49regin.htm>
 
 =item L<Wikipedia: UN M.49|http://en.wikipedia.org/wiki/UN_M.49>
+
+=item L<Locale::CLDR/Territory-Containment>
 
 =back
 

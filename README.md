@@ -4,7 +4,7 @@
 
 # NAME
 
-Geo::Region - Geographical Region & Territory Sets
+Geo::Region - Geographical Region Sets using UN M.49 and CLDR data
 
 # VERSION
 
@@ -12,13 +12,21 @@ This document describes Geo::Region v0.00\_1.
 
 # SYNOPSIS
 
-    use Geo::Region;
+```perl
+use Geo::Region;
 
-    $caribbean = Geo::Region->new(region => '029');
+$caribbean = Geo::Region->new(region => '029');
+
+if ( $caribbean->contains('PR') ) {
+    say 'Caribbean contains Puerto Rico!';
+}
+
+say 'Countries in the Caribbean are: ', join(' ', $caribbean->countries);
+```
 
 # DESCRIPTION
 
-Geographical Region & Territory Sets
+Geographical Region Sets using UN M.49 and CLDR data
 
 ## Attributes
 
@@ -28,13 +36,15 @@ Geographical Region & Territory Sets
 
 ## Methods
 
-- XXX
+- contains
+- countries
 
 # SEE ALSO
 
 - [Unicode CLDR: UN M.49 Territory Containment](http://unicode.org/cldr/charts/latest/supplemental/territory_containment_un_m_49.html)
 - [United Nations: UN M.49 Standard Country or Area Codes](http://unstats.un.org/unsd/methods/m49/m49regin.htm)
 - [Wikipedia: UN M.49](http://en.wikipedia.org/wiki/UN_M.49)
+- ["Territory-Containment" in Locale::CLDR](https://metacpan.org/pod/Locale::CLDR#Territory-Containment)
 
 # AUTHOR
 
