@@ -8,10 +8,21 @@ use namespace::clean;
 
 our $VERSION = '0.00_1';
 
+my %parent_of = map { $_ => '029' } qw(
+    AG AI AW BB BL BQ BS CU CW DM DO GD GP HT
+    JM KN KY LC MF MQ MS PR SX TC TT VC VG VI
+);
+
 has region => (
     is       => 'ro',
     required => 1,
 );
+
+sub contains {
+    my ($self, $region) = @_;
+    return exists $parent_of{$region}
+        && $parent_of{$region} eq $self->region;
+}
 
 1;
 
@@ -51,7 +62,7 @@ UN M.49 region code
 
 =over
 
-=item XXX
+=item contains
 
 =back
 
