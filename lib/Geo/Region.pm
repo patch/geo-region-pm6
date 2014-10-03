@@ -8,9 +8,29 @@ use namespace::clean;
 
 our $VERSION = '0.00_1';
 
-my %parent_of = map { $_ => '029' } qw(
-    AG AI AW BB BL BQ BS CU CW DM DO GD GP HT
-    JM KN KY LC MF MQ MS PR SX TC TT VC VG VI
+my %children_of = (
+    '005' => [qw( AR BO BR CL CO EC FK GF GY PE PY SR UY VE )],
+    '011' => [qw( BF BJ CI CV GH GM GN GW LR ML MR NE NG SH SL SN TG )],
+    '013' => [qw( BZ CR GT HN MX NI PA SV )],
+    '014' => [qw( BI DJ ER ET KE KM MG MU MW MZ RE RW SC SO TZ UG YT ZM ZW )],
+    '015' => [qw( DZ EA EG EH IC LY MA SD SS TN )],
+    '017' => [qw( AO CD CF CG CM GA GQ ST TD )],
+    '018' => [qw( BW LS NA SZ ZA )],
+    '021' => [qw( BM CA GL PM US )],
+    '029' => [qw( AG AI AW BB BL BQ BS CU CW DM DO GD GP HT JM KN KY LC MF MQ MS PR SX TC TT VC VG VI )],
+    '030' => [qw( CN HK JP KP KR MN MO TW )],
+    '034' => [qw( AF BD BT IN IR LK MV NP PK )],
+    '035' => [qw( BN ID KH LA MM MY PH SG TH TL VN )],
+    '039' => [qw( AD AL BA ES GI GR HR IT ME MK MT PT RS SI SM VA XK )],
+    '053' => [qw( AU NF NZ )],
+    '054' => [qw( FJ NC PG SB VU )],
+    '057' => [qw( FM GU KI MH MP NR PW )],
+    '061' => [qw( AS CK NU PF PN TK TO TV WF WS )],
+    '143' => [qw( KG KZ TJ TM UZ )],
+    '145' => [qw( AE AM AZ BH CY GE IL IQ JO KW LB OM PS QA SA SY TR YE )],
+    '151' => [qw( BG BY CZ HU MD PL RO RU SK UA )],
+    '154' => [qw( AX DK EE FI FO GB GG IE IM IS JE LT LV NO SE SJ )],
+    '155' => [qw( AT BE CH DE FR LI LU MC NL )],
 );
 
 has region => (
@@ -18,18 +38,24 @@ has region => (
     required => 1,
 );
 
+has _children => (
+    is      => 'lazy',
+    builder => sub { +{ map { $_ => undef } @{$children_of{shift->region}} } },
+);
+
+has _countries => (
+    is      => 'lazy',
+    builder => sub { $children_of{shift->region} },
+);
+
 sub contains {
     my ($self, $region) = @_;
-    return exists $parent_of{$region}
-        && $parent_of{$region} eq $self->region;
+    return exists $self->_children->{$region};
 }
 
 sub countries {
     my ($self) = @_;
-    return sort grep {
-        length == 2
-        && $parent_of{$_} eq $self->region
-    } keys %parent_of;
+    return @{$self->_countries};
 }
 
 1;
