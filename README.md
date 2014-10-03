@@ -1,3 +1,7 @@
+[![Build status](https://travis-ci.org/perl-cldr/geo-region-pm5.png)](https://travis-ci.org/perl-cldr/geo-region-pm5)
+[![Coverage status](https://coveralls.io/repos/perl-cldr/geo-region-pm5/badge.png)](https://coveralls.io/r/perl-cldr/geo-region-pm5)
+[![CPAN version](https://badge.fury.io/pl/Geo-Region.png)](http://badge.fury.io/pl/Geo-Region)
+
 # NAME
 
 Geo::Region - Geographical Region & Territory Sets
