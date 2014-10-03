@@ -37,6 +37,7 @@ Geographical Region Sets using UN M.49 and CLDR data
 ## Methods
 
 - contains
+- is_within
 - countries
 
 # SEE ALSO

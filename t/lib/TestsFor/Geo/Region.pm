@@ -22,12 +22,19 @@ sub attributes :Test(2) {
     is $region->region, '029', 'get region attribute';
 }
 
-sub methods :Test(4) {
+sub methods :Test(11) {
     my $region = shift->{region};
-    can_ok $region, qw( contains countries )
+    can_ok $region, qw( contains is_within countries )
         or return 'public methods not found';
-    ok $region->contains('PR'),  'Caribbean (029) contains Puerto Rico (PR)';
-    ok !$region->contains('US'), 'does not contain United States (US)';
+    ok $region->contains('029'),   'contains itself (029)';
+    ok $region->contains('PR'),    'contains Puerto Rico (PR)';
+    ok !$region->contains('US'),   'does not contain the United States (US)';
+    ok $region->is_within('029'),  'is within itself (029)';
+    ok $region->is_within('419'),  'is within Latin America (419)';
+    ok $region->is_within('003'),  'is within North America (003)';
+    ok $region->is_within('019'),  'is within the Americas (019)';
+    ok $region->is_within('001'),  'is within the World (001)';
+    ok !$region->is_within('150'), 'is not within Europe (150)';
     is_deeply [$region->countries], [qw(
         AG AI AW BB BL BQ BS CU CW DM DO GD GP HT
         JM KN KY LC MF MQ MS PR SX TC TT VC VG VI

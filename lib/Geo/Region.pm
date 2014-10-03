@@ -3,6 +3,7 @@ package Geo::Region;
 use v5.8.1;
 use utf8;
 use Scalar::Util qw( weaken );
+use List::Util qw( any );
 
 use Moo;
 use namespace::clean;
@@ -61,9 +62,29 @@ has _children => (
     },
 );
 
+has _parents => (
+    is      => 'lazy',
+    builder => sub {
+        my $build_parents;
+        my $tmp = $build_parents = sub { map {
+             my $region = $_;
+             ($region, $build_parents->(grep {
+                 any { $_ eq $region } @{$children_of{$_}}
+             } keys %children_of));
+        } @_ };
+        weaken $build_parents;
+        return [ $build_parents->(shift->region) ];
+    },
+);
+
 has _contains_child => (
     is      => 'lazy',
     builder => sub { +{ map { $_ => 1 } @{shift->_children} } },
+);
+
+has _within_parent => (
+    is      => 'lazy',
+    builder => sub { +{ map { $_ => 1 } @{shift->_parents} } },
 );
 
 has _countries => (
@@ -76,6 +97,11 @@ has _countries => (
 sub contains {
     my ($self, $region) = @_;
     return exists $self->_contains_child->{$region};
+}
+
+sub is_within {
+    my ($self, $region) = @_;
+    return exists $self->_within_parent->{$region};
 }
 
 sub countries {
@@ -128,6 +154,8 @@ UN M.49 region code
 =over
 
 =item contains
+
+=item is_within
 
 =item countries
 
