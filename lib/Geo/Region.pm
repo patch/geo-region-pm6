@@ -31,6 +31,8 @@ my %children_of = (
     '151' => [qw( BG BY CZ HU MD PL RO RU SK UA )],
     '154' => [qw( AX DK EE FI FO GB GG IE IM IS JE LT LV NO SE SJ )],
     '155' => [qw( AT BE CH DE FR LI LU MC NL )],
+    'EU'  => [qw( AT BE BG CY CZ DE DK EE ES FI FR GB GR HR HU IE IT LT LU LV MT NL PL PT RO SE SI SK )],
+    'QO'  => [qw( AC AQ BV CC CP CX DG GS HM IO TA TF UM )],
 );
 
 has region => (
@@ -40,7 +42,7 @@ has region => (
 
 has _children => (
     is      => 'lazy',
-    builder => sub { +{ map { $_ => undef } @{$children_of{shift->region}} } },
+    builder => sub { +{ map { $_ => undef } shift->countries } },
 );
 
 has _countries => (
