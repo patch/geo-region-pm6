@@ -8,6 +8,11 @@ use namespace::clean;
 
 our $VERSION = '0.00_1';
 
+has region => (
+    is       => 'ro',
+    required => 1,
+);
+
 1;
 
 __END__
@@ -26,6 +31,8 @@ This document describes Geo::Region v0.00_1.
 
     use Geo::Region;
 
+    $caribbean = Geo::Region->new(region => '029');
+
 =head1 DESCRIPTION
 
 Geographical Region & Territory Sets
@@ -34,7 +41,9 @@ Geographical Region & Territory Sets
 
 =over
 
-=item XXX
+=item region
+
+UN M.49 region code
 
 =back
 
@@ -50,7 +59,11 @@ Geographical Region & Territory Sets
 
 =over
 
-=item XXX
+=item L<Unicode CLDR: UN M.49 Territory Containment|http://unicode.org/cldr/charts/latest/supplemental/territory_containment_un_m_49.html>
+
+=item L<United Nations: UN M.49 Standard Country or Area Codes|http://unstats.un.org/unsd/methods/m49/m49regin.htm>
+
+=item L<Wikipedia: UN M.49|http://en.wikipedia.org/wiki/UN_M.49>
 
 =back
 
