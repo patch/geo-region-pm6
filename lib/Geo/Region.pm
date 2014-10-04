@@ -71,6 +71,7 @@ has _children => (
 has _parents => (
     is      => 'lazy',
     builder => sub {
+        my @regions = @{shift->_regions};
         my $build_parents;
         my $tmp = $build_parents = sub { map {
              my $region = $_;
@@ -79,7 +80,8 @@ has _parents => (
              } keys %children_of));
         } @_ };
         weaken $build_parents;
-        return [ $build_parents->(@{shift->_regions}) ];
+        my %count;
+        return [ grep { ++$count{$_} == @regions } $build_parents->(@regions) ];
     },
 );
 
