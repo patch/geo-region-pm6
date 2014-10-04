@@ -4,6 +4,7 @@ use v5.8.1;
 use utf8;
 use Scalar::Util qw( looks_like_number weaken );
 use List::Util qw( any );
+use List::MoreUtils qw( uniq );
 
 use Moo;
 use namespace::clean;
@@ -95,7 +96,7 @@ has _within_parent => (
 has _countries => (
     is      => 'lazy',
     builder => sub { [
-        sort grep { !exists $children_of{$_} } @{shift->_children}
+        uniq sort grep { !exists $children_of{$_} } @{shift->_children}
     ] },
 );
 
