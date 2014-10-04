@@ -60,11 +60,12 @@ has _children => (
     is      => 'lazy',
     builder => sub {
         my $build_children;
-        my $tmp = $build_children = sub { map {
+        $build_children = sub { map {
             exists $children_of{$_} ? ($_, $build_children->(@{$children_of{$_}})) : $_
         } @_ };
+        my @children = $build_children->(@{shift->_regions});
         weaken $build_children;
-        return [ $build_children->(@{shift->_regions}) ];
+        return \@children;
     },
 );
 
@@ -72,16 +73,16 @@ has _parents => (
     is      => 'lazy',
     builder => sub {
         my @regions = @{shift->_regions};
-        my $build_parents;
-        my $tmp = $build_parents = sub { map {
+        my ($build_parents, %count);
+        $build_parents = sub { map {
              my $region = $_;
              ($region, $build_parents->(grep {
                  any { $_ eq $region } @{$children_of{$_}}
              } keys %children_of));
         } @_ };
+        my @parents = grep { ++$count{$_} == @regions } $build_parents->(@regions);
         weaken $build_parents;
-        my %count;
-        return [ grep { ++$count{$_} == @regions } $build_parents->(@regions) ];
+        return \@parents;
     },
 );
 
