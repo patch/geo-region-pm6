@@ -43,7 +43,7 @@ my %children_of = (
     'QO'  => [qw( AC AQ BV CC CP CX DG GS HM IO TA TF UM )],
 );
 
-sub _coerce_region {
+sub coerce_region {
     my ($region) = @_;
     return unless defined $region;
     return sprintf '%03d', $region if looks_like_number $region;
@@ -55,7 +55,7 @@ use namespace::clean;
 has _regions => (
     is       => 'ro',
     coerce   => sub { [
-        map { _coerce_region($_) } ref $_[0] eq 'ARRAY' ? @{$_[0]} : $_[0]
+        map { coerce_region($_) } ref $_[0] eq 'ARRAY' ? @{$_[0]} : $_[0]
     ] },
     required => 1,
     init_arg => 'region',
@@ -111,12 +111,12 @@ has _countries => (
 
 sub contains {
     my ($self, $region) = @_;
-    return exists $self->_children->{_coerce_region($region)};
+    return exists $self->_children->{coerce_region($region)};
 }
 
 sub is_within {
     my ($self, $region) = @_;
-    return exists $self->_parents->{_coerce_region($region)};
+    return exists $self->_parents->{coerce_region($region)};
 }
 
 sub countries {
