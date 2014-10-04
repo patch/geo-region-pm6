@@ -3,7 +3,7 @@ package Geo::Region;
 use v5.8.1;
 use utf8;
 use Scalar::Util qw( looks_like_number weaken );
-use List::Util qw( any );
+use List::Util qw( all any );
 use Moo;
 
 our $VERSION = '0.00_1';
@@ -46,20 +46,19 @@ my %children_of = (
 # deprecated countries and alphabetic grouping containers
 my %noncountries = map { $_ => undef } qw( AN BU CS DD EU FX NT QO QU SU TP YD YU ZR );
 
-sub coerce_region {
-    my ($region) = @_;
-    return unless defined $region;
-    return sprintf '%03d', $region if looks_like_number $region;
-    return uc $region;
+sub coerce_regions {
+    my (@regions) = @_;
+    return map  { looks_like_number $_ ? sprintf('%03d', $_) : uc }
+           grep { defined }
+           map  { ref $_ eq 'ARRAY' ? @$_ : $_ }
+               @regions;
 }
 
 use namespace::clean;
 
 has _regions => (
     is       => 'ro',
-    coerce   => sub { [
-        map { coerce_region($_) } ref $_[0] eq 'ARRAY' ? @{$_[0]} : $_[0]
-    ] },
+    coerce   => sub { [ coerce_regions(shift) ] },
     required => 1,
     init_arg => 'region',
 );
@@ -113,13 +112,13 @@ has _countries => (
 );
 
 sub contains {
-    my ($self, $region) = @_;
-    return exists $self->_children->{coerce_region($region)};
+    my ($self, @regions) = @_;
+    return all { exists $self->_children->{$_} } coerce_regions(@regions);
 }
 
 sub is_within {
-    my ($self, $region) = @_;
-    return exists $self->_parents->{coerce_region($region)};
+    my ($self, @regions) = @_;
+    return all { exists $self->_parents->{$_} } coerce_regions(@regions);
 }
 
 sub countries {
