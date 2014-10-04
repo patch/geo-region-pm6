@@ -2,7 +2,7 @@ package Geo::Region;
 
 use v5.8.1;
 use utf8;
-use Scalar::Util qw( weaken );
+use Scalar::Util qw( looks_like_number weaken );
 use List::Util qw( any );
 
 use Moo;
@@ -47,7 +47,10 @@ my %children_of = (
 
 has _regions => (
     is       => 'ro',
-    coerce   => sub { ref $_[0] eq 'ARRAY' ? $_[0] : [ $_[0] ] },
+    coerce   => sub { [
+        map { looks_like_number $_ ? sprintf('%03d', $_) : uc }
+            ref $_[0] eq 'ARRAY' ? @{$_[0]} : $_[0]
+    ] },
     required => 1,
     init_arg => 'region',
 );
