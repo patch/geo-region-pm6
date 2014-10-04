@@ -15,13 +15,6 @@ sub object :Test(1) {
     isa_ok $region, 'Geo::Region';
 }
 
-sub attributes :Test(2) {
-    my $region = shift->{region};
-    can_ok $region, 'region'
-        or return 'attribute methods not found';
-    is $region->region, '029', 'get region attribute';
-}
-
 sub methods :Test(11) {
     my $region = shift->{region};
     can_ok $region, qw( contains is_within countries )

@@ -45,9 +45,11 @@ my %children_of = (
     'QO'  => [qw( AC AQ BV CC CP CX DG GS HM IO TA TF UM )],
 );
 
-has region => (
+has _regions => (
     is       => 'ro',
+    coerce   => sub { ref $_[0] eq 'ARRAY' ? $_[0] : [ $_[0] ] },
     required => 1,
+    init_arg => 'region',
 );
 
 has _children => (
@@ -58,7 +60,7 @@ has _children => (
             exists $children_of{$_} ? ($_, $build_children->(@{$children_of{$_}})) : $_
         } @_ };
         weaken $build_children;
-        return [ $build_children->(shift->region) ];
+        return [ $build_children->(@{shift->_regions}) ];
     },
 );
 
@@ -73,7 +75,7 @@ has _parents => (
              } keys %children_of));
         } @_ };
         weaken $build_parents;
-        return [ $build_parents->(shift->region) ];
+        return [ $build_parents->(@{shift->_regions}) ];
     },
 );
 
