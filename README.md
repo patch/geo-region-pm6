@@ -32,12 +32,17 @@ Geographical Region Sets using UN M.49 and CLDR data
 
 - region
 
-    UN M.49 region code
+    UN M.49 region code, ISO 3166-1 alpha-2 country code, or an array reference of
+    such codes.
+
+- exclude
+
+    Same format as `region`.
 
 ## Methods
 
 - contains
-- is_within
+- is\_within
 - countries
 
 # SEE ALSO

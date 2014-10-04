@@ -63,18 +63,31 @@ has _regions => (
     init_arg => 'region',
 );
 
+has _excludes => (
+    is       => 'ro',
+    coerce   => sub { [ coerce_regions(shift) ] },
+    default  => sub { [] },
+    init_arg => 'exclude',
+);
+
 has _children => (
     is      => 'lazy',
     builder => sub {
+        my $self = shift;
         my $build_children;
+
         $build_children = sub { map {
             $_, exists $children_of{$_}
                      ? $build_children->(@{$children_of{$_}})
                      : ()
         } @_ };
 
-        my %children = map { $_ => undef }
-                           $build_children->(@{shift->_regions});
+        my %excludes = map { $_ => undef }
+                           $build_children->(@{$self->_excludes});
+
+        my %children = map  { $_ => undef }
+                       grep { !exists $excludes{$_} }
+                           $build_children->(@{$self->_regions});
 
         weaken $build_children;
         return \%children;
@@ -162,7 +175,12 @@ Geographical Region Sets using UN M.49 and CLDR data
 
 =item region
 
-UN M.49 region code
+UN M.49 region code, ISO 3166-1 alpha-2 country code, or an array reference of
+such codes.
+
+=item exclude
+
+Same format as C<region>.
 
 =back
 
