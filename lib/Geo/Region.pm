@@ -4,7 +4,6 @@ use v5.8.1;
 use utf8;
 use Scalar::Util qw( looks_like_number weaken );
 use List::Util qw( any );
-use List::MoreUtils qw( uniq );
 
 use Moo;
 use namespace::clean;
@@ -61,11 +60,16 @@ has _children => (
     builder => sub {
         my $build_children;
         $build_children = sub { map {
-            exists $children_of{$_} ? ($_, $build_children->(@{$children_of{$_}})) : $_
+            $_, exists $children_of{$_}
+                     ? $build_children->(@{$children_of{$_}})
+                     : ()
         } @_ };
-        my @children = $build_children->(@{shift->_regions});
+
+        my %children = map { $_ => undef }
+                           $build_children->(@{shift->_regions});
+
         weaken $build_children;
-        return \@children;
+        return \%children;
     },
 );
 
@@ -74,43 +78,38 @@ has _parents => (
     builder => sub {
         my @regions = @{shift->_regions};
         my ($build_parents, %count);
+
         $build_parents = sub { map {
              my $region = $_;
-             ($region, $build_parents->(grep {
+             $region, $build_parents->(grep {
                  any { $_ eq $region } @{$children_of{$_}}
-             } keys %children_of));
+             } keys %children_of);
         } @_ };
-        my @parents = grep { ++$count{$_} == @regions } $build_parents->(@regions);
+
+        my %parents = map  { $_ => undef }
+                      grep { ++$count{$_} == @regions }
+                           $build_parents->(@regions);
+
         weaken $build_parents;
-        return \@parents;
+        return \%parents;
     },
-);
-
-has _contains_child => (
-    is      => 'lazy',
-    builder => sub { +{ map { $_ => 1 } @{shift->_children} } },
-);
-
-has _within_parent => (
-    is      => 'lazy',
-    builder => sub { +{ map { $_ => 1 } @{shift->_parents} } },
 );
 
 has _countries => (
     is      => 'lazy',
     builder => sub { [
-        uniq sort grep { !exists $children_of{$_} } @{shift->_children}
+        sort grep { !exists $children_of{$_} } keys %{shift->_children}
     ] },
 );
 
 sub contains {
     my ($self, $region) = @_;
-    return exists $self->_contains_child->{$region};
+    return exists $self->_children->{$region};
 }
 
 sub is_within {
     my ($self, $region) = @_;
-    return exists $self->_within_parent->{$region};
+    return exists $self->_parents->{$region};
 }
 
 sub countries {

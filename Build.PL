@@ -29,7 +29,6 @@ my $builder = Module::Build->new(
         'utf8'             => 0,
         'Carp'             => 0,
         'List::Util'       => '1.35',
-        'List::MoreUtils'  => '0.09',
         'Moo'              => '1.001000',
         'Scalar::Util'     => '1.10',
     },
