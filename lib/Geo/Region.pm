@@ -98,7 +98,8 @@ has _parents => (
 has _countries => (
     is      => 'lazy',
     builder => sub { [
-        sort grep { !exists $children_of{$_} } keys %{shift->_children}
+        sort grep { /^[A-Z]{2}$/ && !exists $children_of{$_} }
+             keys %{shift->_children}
     ] },
 );
 
