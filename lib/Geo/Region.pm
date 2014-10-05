@@ -161,18 +161,18 @@ This document describes Geo::Region v0.00_1.
     $amer = Geo::Region->new(region => 19);
 
     # Europe (150), Western Asia (145), and Africa (002)
-    $emea = Geo::Region->new(region => [150, 145, 2]);
+    $emea = Geo::Region->new(region => [ 150, 145, 2 ]);
 
     # Asia (142) and Oceania (009), excluding Western Asia (145)
-    $apac = Geo::Region->new(region => [142, 9], exclude => 145);
+    $apac = Geo::Region->new(region => [ 142, 9 ], exclude => 145);
 
-    if ($amer->contains($country)) {
+    if ( $amer->contains($country) ) {
         # country is in the Americas
     }
-    elsif ($emea->contains($country)) {
+    elsif ( $emea->contains($country) ) {
         # country is in Europe, the Middle East, and Africa
     }
-    elsif ($apac->contains($country)) {
+    elsif ( $apac->contains($country) ) {
         # country is in Asia-Pacific
     }
 
