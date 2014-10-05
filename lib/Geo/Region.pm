@@ -59,7 +59,7 @@ use namespace::clean;
 has _regions => (
     is       => 'ro',
     coerce   => sub { [ coerce_regions(shift) ] },
-    required => 1,
+    default  => sub { [] },
     init_arg => 'region',
 );
 
