@@ -66,10 +66,10 @@ Geographical regions of countries using UN M.49 and CLDR data
 
 Nick Patch <patch@cpan.org>
 
-This project is brought to you by L<Perl CLDR|http://perl-cldr.github.io/> and
-L<Shutterstock|http://www.shutterstock.com/>. Additional open source projects
+This project is brought to you by [Perl CLDR](http://perl-cldr.github.io/) and
+[Shutterstock](http://www.shutterstock.com/). Additional open source projects
 from Shutterstock can be found at
-L<code.shutterstock.com|http://code.shutterstock.com/>.
+[code.shutterstock.com](http://code.shutterstock.com/).
 
 # COPYRIGHT AND LICENSE
 
