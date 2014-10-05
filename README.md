@@ -15,23 +15,23 @@ This document describes Geo::Region v0.00\_1.
 ```perl
 use Geo::Region;
 
-# The Americas
-$amer = Geo::Region->new(region => '019');
+# Americas (019)
+$amer = Geo::Region->new(region => 19);
 
-# Europe, the Middle East, and Africa
-$emea = Geo::Region->new(region => ['150', '145', '002']);
+# Europe (150), Western Asia (145), and Africa (002)
+$emea = Geo::Region->new(region => [150, 145, 2]);
 
-# Asia-Pacific
-$apac = Geo::Region->new(region => ['142', '009'], exclude => 145);
+# Asia (142) and Oceania (009), excluding Western Asia (145)
+$apac = Geo::Region->new(region => [142, 9], exclude => 145);
 
-if ( $amer->contains($country) ) {
-    # country is in the Americas (019)
+if ($amer->contains($country)) {
+    # country is in the Americas
 }
-elsif ( $emea->contains($country) ) {
-    # country is in Europe (150), Western Asia (145), or Africa (002)
+elsif ($emea->contains($country)) {
+    # country is in Europe, the Middle East, and Africa
 }
-elsif ( $apac->contains($country) ) {
-    # country is in Asia (142) or Oceania (009) excluding Western Asia (145)
+elsif ($apac->contains($country)) {
+    # country is in Asia-Pacific
 }
 ```
 
