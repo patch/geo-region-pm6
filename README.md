@@ -4,7 +4,7 @@
 
 # NAME
 
-Geo::Region - Geographical regions of countries using UN M.49 and CLDR data
+Geo::Region - Geographical regions and groupings using UN M.49 and CLDR data
 
 # VERSION
 
@@ -37,24 +37,84 @@ elsif ( $apac->contains($country) ) {
 
 # DESCRIPTION
 
-Geographical regions of countries using UN M.49 and CLDR data
+This class is used to create geographical regions and groupings of subregions
+and countries. Default regional groupings are provided using the Unicode CLDR
+v26 Territory Containment data, which is an extension of the United Nations M.49
+standard.
 
-## Attributes
+## Regions
+
+Regions and subregions are represented with UN M.49 region codes, such as **419**
+for Latin America and **035** for Southeast Asia. Either the official format
+using a three-digit 0-padded string like `'035'` or an iteger like `35` may be
+used with this class. Note when using the 0-padded format that it must be quoted
+as a string so as not to be treated as on octal literal. The CLDR also adds two
+additional two-letter region codes which are supported: **EU** for the European
+Union and **QO** for Outlying Oceania.
+
+## Countries
+
+Countries and territories are represented with ISO 3166-1 alpha-2 country codes,
+such as **JP** for Japan and **AQ** for Antarctica, and are case insensitive.
+Unlike with region codes, the three-digit forms of country codes are not used by
+the CLDR or this class.
+
+## Constructor
+
+The `new` class method is used to construct a Geo::Region object along with the
+`region` argument and optional `exclude` argument.
 
 - `region`
 
-    UN M.49 region code, ISO 3166-1 alpha-2 country code, or an array reference of
-    such codes.
+    Accepts either a single region code or an array reference of region or country
+    codes, resulting in a custom region.
+
+    ```perl
+    # countries in the Europen Union
+    Geo::Region->new(region => 'EU')
+
+    # countries in Asia plus Russia
+    Geo::Region->new(region => [ 142, 'RU' ])
+    ```
 
 - `exclude`
 
-    Same format as `region`.
+    Accepts values in the same format as `region`. This can be used to exclude
+    countries or subregions from a region.
+
+    ```perl
+    # countries in Europe which are not in the European Union
+    Geo::Region->new(region => 150, exclude => 'EU')
+    ```
 
 ## Methods
 
 - `contains`
+
+    Given a country or region code, determines if the region represented by the
+    Geo::Region instance contains it.
+
+    ```perl
+    if ( $region->contains($country) ) { ...
+    ```
+
 - `is_within`
+
+    Given a region code, determines if all the countries and regions represented by
+    the Geo::Region instance are within it.
+
+    ```perl
+    if ( $subregion->is_within($region) ) { ...
+    ```
+
 - `countries`
+
+    Returns a list of country codes of the countries within the region represented
+    by the Geo::Region instance.
+
+    ```perl
+    for ( $region->countries ) { ...
+    ```
 
 # SEE ALSO
 

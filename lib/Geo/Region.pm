@@ -147,7 +147,7 @@ __END__
 
 =head1 NAME
 
-Geo::Region - Geographical regions of countries using UN M.49 and CLDR data
+Geo::Region - Geographical regions and groupings using UN M.49 and CLDR data
 
 =head1 VERSION
 
@@ -178,20 +178,53 @@ This document describes Geo::Region v0.00_1.
 
 =head1 DESCRIPTION
 
-Geographical regions of countries using UN M.49 and CLDR data
+This class is used to create geographical regions and groupings of subregions
+and countries. Default regional groupings are provided using the Unicode CLDR
+v26 Territory Containment data, which is an extension of the United Nations M.49
+standard.
 
-=head2 Attributes
+=head2 Regions
+
+Regions and subregions are represented with UN M.49 region codes, such as B<419>
+for Latin America and B<035> for Southeast Asia. Either the official format
+using a three-digit 0-padded string like C<'035'> or an iteger like C<35> may be
+used with this class. Note when using the 0-padded format that it must be quoted
+as a string so as not to be treated as on octal literal. The CLDR also adds two
+additional two-letter region codes which are supported: B<EU> for the European
+Union and B<QO> for Outlying Oceania.
+
+=head2 Countries
+
+Countries and territories are represented with ISO 3166-1 alpha-2 country codes,
+such as B<JP> for Japan and B<AQ> for Antarctica, and are case insensitive.
+Unlike with region codes, the three-digit forms of country codes are not used by
+the CLDR or this class.
+
+=head2 Constructor
+
+The C<new> class method is used to construct a Geo::Region object along with the
+C<region> argument and optional C<exclude> argument.
 
 =over
 
 =item C<region>
 
-UN M.49 region code, ISO 3166-1 alpha-2 country code, or an array reference of
-such codes.
+Accepts either a single region code or an array reference of region or country
+codes, resulting in a custom region.
+
+    # countries in the Europen Union
+    Geo::Region->new(region => 'EU')
+
+    # countries in Asia plus Russia
+    Geo::Region->new(region => [ 142, 'RU' ])
 
 =item C<exclude>
 
-Same format as C<region>.
+Accepts values in the same format as C<region>. This can be used to exclude
+countries or subregions from a region.
+
+    # countries in Europe which are not in the European Union
+    Geo::Region->new(region => 150, exclude => 'EU')
 
 =back
 
@@ -201,9 +234,24 @@ Same format as C<region>.
 
 =item C<contains>
 
+Given a country or region code, determines if the region represented by the
+Geo::Region instance contains it.
+
+    if ( $region->contains($country) ) { ...
+
 =item C<is_within>
 
+Given a region code, determines if all the countries and regions represented by
+the Geo::Region instance are within it.
+
+    if ( $subregion->is_within($region) ) { ...
+
 =item C<countries>
+
+Returns a list of country codes of the countries within the region represented
+by the Geo::Region instance.
+
+    for ( $region->countries ) { ...
 
 =back
 
