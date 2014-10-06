@@ -46,11 +46,11 @@ standard.
 
 Regions and subregions are represented with UN M.49 region codes, such as **419**
 for Latin America and **035** for Southeast Asia. Either the official format
-using a three-digit 0-padded string like `'035'` or an iteger like `35` may be
-used with this class. Note when using the 0-padded format that it must be quoted
-as a string so as not to be treated as on octal literal. The CLDR also adds two
-additional two-letter region codes which are supported: **EU** for the European
-Union and **QO** for Outlying Oceania.
+using a three-digit `0`-padded string like `'035'` or an iteger like `35` may
+be used with this class. Note when using the `0`-padded format that it must be
+quoted as a string so as not to be treated as on octal literal. The CLDR also
+adds two additional two-letter region codes which are supported: **EU** for the
+European Union and **QO** for Outlying Oceania.
 
 ## Countries
 
@@ -95,7 +95,7 @@ The `new` class method is used to construct a Geo::Region object along with the
     Geo::Region instance contains it.
 
     ```perl
-    if ( $region->contains($country) ) { ...
+    if ( $region->contains($country) ) {
     ```
 
 - `is_within`
@@ -104,7 +104,7 @@ The `new` class method is used to construct a Geo::Region object along with the
     the Geo::Region instance are within it.
 
     ```perl
-    if ( $subregion->is_within($region) ) { ...
+    if ( $subregion->is_within($region) ) {
     ```
 
 - `countries`
@@ -113,7 +113,7 @@ The `new` class method is used to construct a Geo::Region object along with the
     by the Geo::Region instance.
 
     ```perl
-    for ( $region->countries ) { ...
+    for ( $region->countries ) {
     ```
 
 # SEE ALSO

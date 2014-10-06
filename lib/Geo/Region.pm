@@ -187,11 +187,11 @@ standard.
 
 Regions and subregions are represented with UN M.49 region codes, such as B<419>
 for Latin America and B<035> for Southeast Asia. Either the official format
-using a three-digit 0-padded string like C<'035'> or an iteger like C<35> may be
-used with this class. Note when using the 0-padded format that it must be quoted
-as a string so as not to be treated as on octal literal. The CLDR also adds two
-additional two-letter region codes which are supported: B<EU> for the European
-Union and B<QO> for Outlying Oceania.
+using a three-digit C<0>-padded string like C<'035'> or an iteger like C<35> may
+be used with this class. Note when using the C<0>-padded format that it must be
+quoted as a string so as not to be treated as on octal literal. The CLDR also
+adds two additional two-letter region codes which are supported: B<EU> for the
+European Union and B<QO> for Outlying Oceania.
 
 =head2 Countries
 
@@ -237,21 +237,21 @@ countries or subregions from a region.
 Given a country or region code, determines if the region represented by the
 Geo::Region instance contains it.
 
-    if ( $region->contains($country) ) { ...
+    if ( $region->contains($country) ) {
 
 =item C<is_within>
 
 Given a region code, determines if all the countries and regions represented by
 the Geo::Region instance are within it.
 
-    if ( $subregion->is_within($region) ) { ...
+    if ( $subregion->is_within($region) ) {
 
 =item C<countries>
 
 Returns a list of country codes of the countries within the region represented
 by the Geo::Region instance.
 
-    for ( $region->countries ) { ...
+    for ( $region->countries ) {
 
 =back
 
