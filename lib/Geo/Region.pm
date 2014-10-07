@@ -9,6 +9,7 @@ use Moo;
 our $VERSION = '0.00_1';
 
 my %children_of = (
+    # regions of subregions
     '001' => [qw( 002 009 019 142 150 )],
     '002' => [qw( 011 014 015 017 018 )],
     '003' => [qw( 013 021 029 )],
@@ -17,6 +18,7 @@ my %children_of = (
     '142' => [qw( 030 034 035 143 145 )],
     '150' => [qw( 039 151 154 155 EU QU )],
     '419' => [qw( 005 013 029 )],
+    # regions of countries and territories
     '005' => [qw( AR BO BR CL CO EC FK GF GY PE PY SR UY VE )],
     '011' => [qw( BF BJ CI CV GH GM GN GW LR ML MR NE NG SH SL SN TG )],
     '013' => [qw( BZ CR GT HN MX NI PA SV )],
@@ -43,15 +45,15 @@ my %children_of = (
     'QO'  => [qw( AC AQ BV CC CP CX DG GS HM IO TA TF UM )],
 );
 
-# deprecated countries and alphabetic grouping containers
-my %noncountries = map { $_ => undef } qw( AN BU CS DD EU FX NT QO QU SU TP YD YU ZR );
+# codes excluded from country list due to being deprecated or grouping container
+my %noncountries = map { $_ => 1 } qw(
+    AN BU CS DD EU FX NT QO QU SU TP YD YU ZR
+);
 
 sub coerce_regions {
-    my (@regions) = @_;
-    return map  { looks_like_number $_ ? sprintf('%03d', $_) : uc }
-           grep { defined }
-           map  { ref $_ eq 'ARRAY' ? @$_ : $_ }
-               @regions;
+    map  { looks_like_number $_ ? sprintf('%03d', $_) : uc }
+    grep { defined }
+    map  { ref eq 'ARRAY' ? @$_ : $_ } @_
 }
 
 use namespace::clean;
@@ -82,12 +84,12 @@ has _children => (
                      : ()
         } @_ };
 
-        my %excludes = map { $_ => undef }
+        my %excludes = map { $_ => 1 }
                            $build_children->(@{$self->_excludes});
 
-        my %children = map  { $_ => undef }
+        my %children = map  { $_ => 1 }
                        grep { !exists $excludes{$_} }
-                           $build_children->(@{$self->_regions});
+                            $build_children->(@{$self->_regions});
 
         weaken $build_children;
         return \%children;
@@ -107,7 +109,7 @@ has _parents => (
              } keys %children_of);
         } @_ };
 
-        my %parents = map  { $_ => undef }
+        my %parents = map  { $_ => 1 }
                       grep { ++$count{$_} == @regions }
                            $build_parents->(@regions);
 
@@ -119,8 +121,9 @@ has _parents => (
 has _countries => (
     is      => 'lazy',
     builder => sub { [
-        sort grep { /^[A-Z]{2}$/ && !exists $noncountries{$_} }
-             keys %{shift->_children}
+        sort
+        grep { /^[A-Z]{2}$/ && !exists $noncountries{$_} }
+        keys %{shift->_children}
     ] },
 );
 
