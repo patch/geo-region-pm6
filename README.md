@@ -8,7 +8,7 @@ Geo::Region - Geographical regions and groupings using UN M.49 and CLDR data
 
 # VERSION
 
-This document describes Geo::Region v0.00\_1.
+This document describes Geo::Region v0.00\_01.
 
 # SYNOPSIS
 
@@ -46,9 +46,9 @@ standard.
 
 Regions and subregions are represented with UN M.49 region codes, such as **419**
 for Latin America and **035** for Southeast Asia. Either the official format
-using a three-digit `0`-padded string like `'035'` or an iteger like `35` may
-be used with this class. Note when using the `0`-padded format that it must be
-quoted as a string so as not to be treated as on octal literal. The CLDR also
+using a three-digit `0`-padded string like `'035'` or an integer like `35`
+may be used with this class. Note when using the `0`-padded format that it must
+be quoted as a string so as not to be treated as on octal literal. The CLDR also
 adds two additional two-letter region codes which are supported: **EU** for the
 European Union and **QO** for Outlying Oceania.
 

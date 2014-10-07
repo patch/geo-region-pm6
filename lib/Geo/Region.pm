@@ -6,7 +6,7 @@ use Scalar::Util qw( looks_like_number weaken );
 use List::Util qw( all any );
 use Moo;
 
-our $VERSION = '0.00_1';
+our $VERSION = '0.00_01';
 
 my %children_of = (
     # regions of subregions
@@ -154,7 +154,7 @@ Geo::Region - Geographical regions and groupings using UN M.49 and CLDR data
 
 =head1 VERSION
 
-This document describes Geo::Region v0.00_1.
+This document describes Geo::Region v0.00_01.
 
 =head1 SYNOPSIS
 
@@ -190,9 +190,9 @@ standard.
 
 Regions and subregions are represented with UN M.49 region codes, such as B<419>
 for Latin America and B<035> for Southeast Asia. Either the official format
-using a three-digit C<0>-padded string like C<'035'> or an iteger like C<35> may
-be used with this class. Note when using the C<0>-padded format that it must be
-quoted as a string so as not to be treated as on octal literal. The CLDR also
+using a three-digit C<0>-padded string like C<'035'> or an integer like C<35>
+may be used with this class. Note when using the C<0>-padded format that it must
+be quoted as a string so as not to be treated as on octal literal. The CLDR also
 adds two additional two-letter region codes which are supported: B<EU> for the
 European Union and B<QO> for Outlying Oceania.
 
