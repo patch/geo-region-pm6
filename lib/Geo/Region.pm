@@ -170,21 +170,23 @@ This document describes Geo::Region v0.00_01.
     $apac = Geo::Region->new(region => [ 142, 9 ], exclude => 145);
 
     if ( $amer->contains($country) ) {
-        # country is in the Americas
+        # country is in the Americas (US, MX, BR, etc.)
     }
     elsif ( $emea->contains($country) ) {
-        # country is in Europe, the Middle East, and Africa
+        # country is in Europe, the Middle East, and Africa (FR, SA, ZW, etc.)
     }
     elsif ( $apac->contains($country) ) {
-        # country is in Asia-Pacific
+        # country is in Asia-Pacific (JP, TH, AU, etc.)
     }
 
 =head1 DESCRIPTION
 
 This class is used to create geographical regions and groupings of subregions
-and countries. Default regional groupings are provided using the Unicode CLDR
-v26 Territory Containment data, which is an extension of the United Nations M.49
-standard.
+and countries. Default regional groupings are provided using the L<Unicode CLDR
+v26 Territory
+Containment|http://unicode.org/cldr/charts/26/supplemental/territory_containment_un_m_49.html>
+data, which is an extension of the L<United Nations
+M.49|http://unstats.un.org/unsd/methods/m49/m49regin.htm> standard.
 
 =head2 Regions
 
@@ -262,9 +264,11 @@ by the Geo::Region instance.
 
 =over
 
-=item L<Unicode CLDR: UN M.49 Territory Containment|http://unicode.org/cldr/charts/latest/supplemental/territory_containment_un_m_49.html>
+=item L<Unicode CLDR: UN M.49 Territory
+Containment|http://unicode.org/cldr/charts/26/supplemental/territory_containment_un_m_49.html>
 
-=item L<United Nations: UN M.49 Standard Country, Area, & Region Codes|http://unstats.un.org/unsd/methods/m49/m49regin.htm>
+=item L<United Nations: UN M.49 Standard Country, Area, & Region
+Codes|http://unstats.un.org/unsd/methods/m49/m49regin.htm>
 
 =item L<Locale::CLDR: Territory Containment|Locale::CLDR/Territory-Containment>
 
