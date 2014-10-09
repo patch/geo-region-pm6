@@ -27,7 +27,6 @@ my $builder = Module::Build->new(
         'perl'             => '5.8.1',
         'namespace::clean' => 0,
         'utf8'             => 0,
-        'Carp'             => 0,
         'List::Util'       => '1.35',
         'Moo'              => '1.001000',
         'Scalar::Util'     => '1.10',
