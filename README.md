@@ -22,7 +22,7 @@ $amer = Geo::Region->new(19);
 $emea = Geo::Region->new([ 150, 145, 2 ]);
 
 # Asia (142) and Oceania (009), excluding Western Asia (145)
-$apac = Geo::Region->new(include => [ 142, 9 ], exclude => 145);
+$apac = Geo::Region->new([ 142, 9 ], exclude => 145);
 
 if ( $amer->contains($country) ) {
     # country is in the Americas (US, MX, BR, etc.)
@@ -69,8 +69,9 @@ The `new` class method is used to construct a Geo::Region object along with the
 - `include`
 
     Accepts either a single region code or an array reference of region or country
-    codes to be included in the resulting custom region. When a single argument is
-    passed to the `new` constructor, it is treated as the value of `include`.
+    codes to be included in the resulting custom region. When passed to the `new`
+    constructor as the first or only argument, the value may be given without the
+    `include` key.
 
     ```perl
     # countries in the Europen Union
@@ -90,6 +91,7 @@ The `new` class method is used to construct a Geo::Region object along with the
     ```perl
     # countries in Europe which are not in the European Union
     Geo::Region->new(include => 150, exclude => 'EU')
+    Geo::Region->new(150, exclude => 'EU')
     ```
 
 ## Methods

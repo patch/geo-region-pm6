@@ -130,8 +130,9 @@ has _countries => (
 sub BUILDARGS {
     my ($class, @args) = @_;
 
-    return { include => $args[0] }
-        if @args == 1;
+    if (@args % 2 == 1) {
+        unshift @args, 'include';
+    }
 
     return { map { $_ eq 'region' ? 'include' : $_ } @args };
 }
@@ -176,7 +177,7 @@ This document describes Geo::Region v0.01.
     $emea = Geo::Region->new([ 150, 145, 2 ]);
 
     # Asia (142) and Oceania (009), excluding Western Asia (145)
-    $apac = Geo::Region->new(include => [ 142, 9 ], exclude => 145);
+    $apac = Geo::Region->new([ 142, 9 ], exclude => 145);
 
     if ( $amer->contains($country) ) {
         # country is in the Americas (US, MX, BR, etc.)
@@ -224,8 +225,9 @@ C<include> argument and optional C<exclude> argument.
 =item C<include>
 
 Accepts either a single region code or an array reference of region or country
-codes to be included in the resulting custom region. When a single argument is
-passed to the C<new> constructor, it is treated as the value of C<include>.
+codes to be included in the resulting custom region. When passed to the C<new>
+constructor as the first or only argument, the value may be given without the
+C<include> key.
 
     # countries in the Europen Union
     Geo::Region->new(include => 'EU')
@@ -242,6 +244,7 @@ countries or subregions from a region.
 
     # countries in Europe which are not in the European Union
     Geo::Region->new(include => 150, exclude => 'EU')
+    Geo::Region->new(150, exclude => 'EU')
 
 =back
 
