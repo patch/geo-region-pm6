@@ -16,10 +16,10 @@ This document describes Geo::Region v0.01.
 use Geo::Region;
 
 # Americas (019)
-$amer = Geo::Region->new(include => 19);
+$amer = Geo::Region->new(19);
 
 # Europe (150), Western Asia (145), and Africa (002)
-$emea = Geo::Region->new(include => [ 150, 145, 2 ]);
+$emea = Geo::Region->new([ 150, 145, 2 ]);
 
 # Asia (142) and Oceania (009), excluding Western Asia (145)
 $apac = Geo::Region->new(include => [ 142, 9 ], exclude => 145);
@@ -69,14 +69,17 @@ The `new` class method is used to construct a Geo::Region object along with the
 - `include`
 
     Accepts either a single region code or an array reference of region or country
-    codes to be included in the resulting custom region.
+    codes to be included in the resulting custom region. When a single argument is
+    passed to the `new` constructor, it is treated as the value of `include`.
 
     ```perl
     # countries in the Europen Union
     Geo::Region->new(include => 'EU')
+    Geo::Region->new('EU')
 
     # countries in Asia plus Russia
     Geo::Region->new(include => [ 142, 'RU' ])
+    Geo::Region->new([ 142, 'RU' ])
     ```
 
 - `exclude`
