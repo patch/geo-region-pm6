@@ -133,7 +133,7 @@ sub BUILDARGS {
     return { include => $args[0] }
         if @args == 1;
 
-    return { @args };
+    return { map { $_ eq 'region' ? 'include' : $_ } @args };
 }
 
 sub contains {
