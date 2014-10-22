@@ -7,7 +7,7 @@ use Test::More;
 use Geo::Region;
 
 sub setup :Test(setup) {
-    shift->{region} = Geo::Region->new(region => '029');
+    shift->{region} = Geo::Region->new(include => '029');
 }
 
 sub object :Test(1) {

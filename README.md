@@ -16,13 +16,13 @@ This document describes Geo::Region v0.01.
 use Geo::Region;
 
 # Americas (019)
-$amer = Geo::Region->new(region => 19);
+$amer = Geo::Region->new(include => 19);
 
 # Europe (150), Western Asia (145), and Africa (002)
-$emea = Geo::Region->new(region => [ 150, 145, 2 ]);
+$emea = Geo::Region->new(include => [ 150, 145, 2 ]);
 
 # Asia (142) and Oceania (009), excluding Western Asia (145)
-$apac = Geo::Region->new(region => [ 142, 9 ], exclude => 145);
+$apac = Geo::Region->new(include => [ 142, 9 ], exclude => 145);
 
 if ( $amer->contains($country) ) {
     # country is in the Americas (US, MX, BR, etc.)
@@ -64,29 +64,29 @@ the CLDR or this class.
 ## Constructor
 
 The `new` class method is used to construct a Geo::Region object along with the
-`region` argument and optional `exclude` argument.
+`include` argument and optional `exclude` argument.
 
-- `region`
+- `include`
 
     Accepts either a single region code or an array reference of region or country
-    codes, resulting in a custom region.
+    codes to be included in the resulting custom region.
 
     ```perl
     # countries in the Europen Union
-    Geo::Region->new(region => 'EU')
+    Geo::Region->new(include => 'EU')
 
     # countries in Asia plus Russia
-    Geo::Region->new(region => [ 142, 'RU' ])
+    Geo::Region->new(include => [ 142, 'RU' ])
     ```
 
 - `exclude`
 
-    Accepts values in the same format as `region`. This can be used to exclude
+    Accepts values in the same format as `include`. This can be used to exclude
     countries or subregions from a region.
 
     ```perl
     # countries in Europe which are not in the European Union
-    Geo::Region->new(region => 150, exclude => 'EU')
+    Geo::Region->new(include => 150, exclude => 'EU')
     ```
 
 ## Methods
