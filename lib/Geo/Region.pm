@@ -134,6 +134,7 @@ sub BUILDARGS {
         unshift @args, 'include';
     }
 
+    # `region` is a deprecated alias for `include`
     return { map { $_ eq 'region' ? 'include' : $_ } @args };
 }
 

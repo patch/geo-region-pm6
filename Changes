@@ -1,5 +1,11 @@
 Revision history for Perl module Geo::Region
 
+0.01_01 XXX
+ - The `region` param to the constructor has been renamed `include` while the
+   deprecated alias `region` has been added for backward compatibility
+ - Passing the `include` key is now optional when the value is passed as the
+   first or only argument to the constructor
+
 0.01 2014-10-10
  - First official release to CPAN
  - Improved docs
