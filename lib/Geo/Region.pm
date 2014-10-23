@@ -130,12 +130,15 @@ has _countries => (
 sub BUILDARGS {
     my ($class, @args) = @_;
 
-    if (@args % 2 == 1) {
-        unshift @args, 'include';
-    }
+    # the `include` key is optional for the first argument
+    my %args = @args % 2 ? (include => @args) : @args;
 
     # `region` is a deprecated alias for `include`
-    return { map { $_ eq 'region' ? 'include' : $_ } @args };
+    if (exists $args{region}) {
+        $args{include} = delete $args{region};
+    }
+
+    return \%args;
 }
 
 sub contains {
