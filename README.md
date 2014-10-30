@@ -74,7 +74,7 @@ The `new` class method is used to construct a Geo::Region object along with the
     `include` key.
 
     ```perl
-    # countries in the Europen Union
+    # countries in the European Union
     Geo::Region->new(include => 'EU')
     Geo::Region->new('EU')
 

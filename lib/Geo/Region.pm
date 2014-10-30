@@ -233,7 +233,7 @@ codes to be included in the resulting custom region. When passed to the C<new>
 constructor as the first or only argument, the value may be given without the
 C<include> key.
 
-    # countries in the Europen Union
+    # countries in the European Union
     Geo::Region->new(include => 'EU')
     Geo::Region->new('EU')
 
