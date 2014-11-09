@@ -7,4 +7,4 @@ META.json
 META.yml
 README
 t/00-load.t
-t/geo-region.t
+t/region.t

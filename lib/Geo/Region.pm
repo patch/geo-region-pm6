@@ -47,7 +47,8 @@ my %children_of = (
 
 # codes excluded from country list due to being deprecated or grouping container
 my %noncountries = map { $_ => 1 } qw(
-    AN BU CS DD EU FX NT QO QU SU TP YD YU ZR
+    AN BU CS DD FX NT QU SU TP YD YU ZR
+    EU QO
 );
 
 sub coerce_regions {
