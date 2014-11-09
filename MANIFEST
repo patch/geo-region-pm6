@@ -8,4 +8,3 @@ META.yml
 README
 t/00-load.t
 t/geo-region.t
-t/lib/TestsFor/Geo/Region.pm

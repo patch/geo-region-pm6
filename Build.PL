@@ -19,8 +19,6 @@ my $builder = Module::Build->new(
         'strict'            => 0,
         'warnings'          => 0,
         'English'           => 0,
-        'Test::Class'       => 0,
-        'Test::Class::Load' => 0,
         'Test::More'        => '0.82',
     },
     requires => {
