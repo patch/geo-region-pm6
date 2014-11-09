@@ -2,7 +2,7 @@ use utf8;
 use strict;
 use warnings;
 use open qw( :encoding(UTF-8) :std );
-use Test::More tests => 7;
+use Test::More tests => 8;
 use Geo::Region;
 
 subtest 'default empty region' => sub {
@@ -24,6 +24,13 @@ subtest 'explicit empty region' => sub {
 subtest 'single argument instantiation' => sub {
     plan tests => 1;
     my $r = Geo::Region->new(53);
+
+    is_deeply [$r->countries], [qw( AU NF NZ )], 'expected countries';
+};
+
+subtest 'deprecated region param' => sub {
+    plan tests => 1;
+    my $r = Geo::Region->new(region => 53);
 
     is_deeply [$r->countries], [qw( AU NF NZ )], 'expected countries';
 };
