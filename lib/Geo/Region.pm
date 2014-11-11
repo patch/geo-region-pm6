@@ -6,7 +6,7 @@ use Scalar::Util qw( looks_like_number weaken );
 use List::Util qw( all any );
 use Moo;
 
-our $VERSION = '0.02';
+our $VERSION = '0.02_01';
 
 my %children_of = (
     # regions of subregions
@@ -169,7 +169,7 @@ Geo::Region - Geographical regions and groupings using UN M.49 and CLDR data
 
 =head1 VERSION
 
-This document describes Geo::Region v0.02.
+This document describes Geo::Region v0.02_01.
 
 =head1 SYNOPSIS
 

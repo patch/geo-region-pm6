@@ -8,7 +8,7 @@ Geo::Region - Geographical regions and groupings using UN M.49 and CLDR data
 
 # VERSION
 
-This document describes Geo::Region v0.02.
+This document describes Geo::Region v0.02\_01.
 
 # SYNOPSIS
 
