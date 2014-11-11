@@ -2,7 +2,7 @@ use utf8;
 use strict;
 use warnings;
 use open qw( :encoding(UTF-8) :std );
-use Test::More tests => 8;
+use Test::More tests => 10;
 use Geo::Region;
 
 subtest 'default empty region' => sub {
@@ -36,7 +36,7 @@ subtest 'deprecated region param' => sub {
 };
 
 subtest 'World (001) superregion' => sub {
-    plan tests => 40;
+    plan tests => 44;
     my $r = Geo::Region->new(include => 1);
 
     ok $r->is_within(1),    'region is within itself';
@@ -55,9 +55,12 @@ subtest 'World (001) superregion' => sub {
     is_deeply \@countries,  [sort @countries], 'countries are sorted';
 
     my %returns_country = map { $_ => 1 } @countries;
-    my @deprecated = qw( AN BU CS DD FX NT QU SU TP YD YU ZR );
-    my @grouping   = qw( EU QO );
-    for my $code (@deprecated, @grouping) {
+    # these codes are: 1. deprecated; 2. grouping; and 3. aliases
+    for my $code (qw(
+        AN BU CS DD FX NT QU SU TP YD YU ZR
+        EU QO
+        QU UK
+    )) {
         ok $r->contains($code),      "contains code $code";
         ok !$returns_country{$code}, "does not return code $code";
     }
@@ -113,4 +116,27 @@ subtest 'Europe (150) − European Union (EU)' => sub {
         [qw( AD AL AX BA BY CH FO GG GI IM IS JE LI MC MD ME MK NO RS RU SJ SM UA VA XK )],
         'return all countries within included except excluded'
     );
+};
+
+subtest 'deprecated alias QU for EU' => sub {
+    plan tests => 6;
+    my $r = Geo::Region->new(include => 'QU');
+
+    ok $r->is_within('EU'), 'within official region';
+    ok $r->is_within('QU'), 'within deprecated region';
+    ok $r->contains('EU'),  'contains official region';
+    ok $r->contains('QU'),  'contains deprecated region';
+    ok $r->contains('GB'),  'contains official country';
+    ok $r->contains('UK'),  'contains deprecated country';
+};
+
+subtest 'deprecated alias UK for GB' => sub {
+    plan tests => 5;
+    my $r = Geo::Region->new(include => 'UK');
+
+    ok $r->is_within('GB'), 'within official country';
+    ok $r->is_within('UK'), 'within deprecated country';
+    ok $r->contains('GB'),  'contains official country';
+    ok $r->contains('UK'),  'contains deprecated country';
+    is_deeply [$r->countries], ['GB'], 'only official countries';
 };
