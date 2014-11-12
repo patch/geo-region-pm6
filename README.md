@@ -8,7 +8,7 @@ Geo::Region - Geographical regions and groupings using UN M.49 and CLDR data
 
 # VERSION
 
-This document describes Geo::Region v0.02\_01, built with Unicode CLDR v26.
+This document describes Geo::Region v0.03, built with Unicode CLDR v26.
 
 # SYNOPSIS
 
@@ -58,9 +58,9 @@ European Union and **QO** for Outlying Oceania.
 
 Countries and territories are represented with ISO 3166-1 alpha-2 country codes,
 such as **JP** for Japan and **AQ** for Antarctica, and are case insensitive.
-Unlike with region codes, the three-digit forms of country codes are not used by
-the CLDR or currently supported by this class. The deprecated code **UK** for the
-United Kingdom is supported as an alias of the official code **GB**.
+Unlike with region codes, the three-digit forms of country codes are not
+currently supported, nor are three-letter codes. The deprecated code **UK** for
+the United Kingdom is supported as an alias of the official code **GB**.
 
 ## Constructor
 

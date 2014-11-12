@@ -1,6 +1,6 @@
 Revision history for Perl module Geo::Region
 
-0.02_01 XXX
+0.03 2014-11-11
  - Added country code `UK` as a deprecated alias of `GB` (United Kingdom)
  - Changed deprecated region `QU` from being within `150` (Europe) to being a
    deprecated alias of `EU` (European Union), which is also within `150`
