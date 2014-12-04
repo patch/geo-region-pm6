@@ -32,9 +32,9 @@ my $builder = Module::Build->new(
     },
     meta_merge => {
         resources => {
-            repository => 'git://github.com/perl-cldr/geo-region-pm5.git',
-            homepage   => 'https://github.com/perl-cldr/geo-region-pm5',
-            bugtracker => 'https://github.com/perl-cldr/geo-region-pm5/issues',
+            repository => 'git://github.com/patch/geo-region-pm5.git',
+            homepage   => 'https://github.com/patch/geo-region-pm5',
+            bugtracker => 'https://github.com/patch/geo-region-pm5/issues',
         },
     },
 );
