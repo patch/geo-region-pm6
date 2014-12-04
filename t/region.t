@@ -1,8 +1,6 @@
 use utf8;
-use strict;
-use warnings;
 use open qw( :encoding(UTF-8) :std );
-use Test::More tests => 10;
+use Test::Most tests => 10;
 use Geo::Region;
 
 subtest 'default empty region' => sub {
@@ -29,8 +27,11 @@ subtest 'single argument instantiation' => sub {
 };
 
 subtest 'deprecated region param' => sub {
-    plan tests => 1;
-    my $r = Geo::Region->new(region => 53);
+    plan tests => 2;
+    my $r;
+    warning_like {
+        $r = Geo::Region->new(region => 53)
+    } qr/deprecated/, 'deprecated argument warning';
 
     is_deeply [$r->countries], [qw( AU NF NZ )], 'expected countries';
 };
