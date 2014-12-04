@@ -8,7 +8,7 @@ Geo::Region - Geographical regions and groupings using UN M.49 and CLDR data
 
 # VERSION
 
-This document describes Geo::Region v0.03, built with Unicode CLDR v26.
+This document describes Geo::Region v0.04, built with Unicode CLDR v26.
 
 # SYNOPSIS
 
