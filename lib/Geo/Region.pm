@@ -182,15 +182,11 @@ This document describes Geo::Region v0.04, built with Unicode CLDR v26.
 =head1 SYNOPSIS
 
     use Geo::Region;
+    use Geo::Region::Constant qw( :all );
 
-    # Americas (019)
-    $amer = Geo::Region->new(19);
-
-    # Europe (150), Western Asia (145), and Africa (002)
-    $emea = Geo::Region->new([ 150, 145, 2 ]);
-
-    # Asia (142) and Oceania (009), excluding Western Asia (145)
-    $apac = Geo::Region->new([ 142, 9 ], exclude => 145);
+    $amer = Geo::Region->new( AMERICAS );
+    $emea = Geo::Region->new([ EUROPE, WESTERN_ASIA, AFRICA ]);
+    $apac = Geo::Region->new([ ASIA, OCEANIA ], exclude => WESTERN_ASIA );
 
     if ( $amer->contains($country) ) {
         # country is in the Americas (US, MX, BR, etc.)
@@ -219,7 +215,8 @@ using a three-digit C<0>-padded string like C<'035'> or an integer like C<35>
 may be used with this class. Note when using the C<0>-padded format that it must
 be quoted as a string so as not to be treated as on octal literal. The CLDR also
 adds two additional two-letter region codes which are supported: B<EU> for the
-European Union and B<QO> for Outlying Oceania.
+European Union and B<QO> for Outlying Oceania. These region codes are all
+available as constants in L<Geo::Region::Constant>.
 
 =head2 Countries
 
@@ -243,22 +240,22 @@ codes to be included in the resulting custom region. When passed to the C<new>
 constructor as the first or only argument, the value may be given without the
 C<include> key.
 
-    # countries in the European Union
-    Geo::Region->new(include => 'EU')
-    Geo::Region->new('EU')
+    # countries in the European Union (EU)
+    Geo::Region->new( include => EUROPEAN_UNION )
+    Geo::Region->new( EUROPEAN_UNION )
 
-    # countries in Asia plus Russia
-    Geo::Region->new(include => [ 142, 'RU' ])
-    Geo::Region->new([ 142, 'RU' ])
+    # countries in Asia (142) plus Russia (RU)
+    Geo::Region->new( include => [ ASIA, 'RU' ])
+    Geo::Region->new([ ASIA, 'RU' ])
 
 =item C<exclude>
 
 Accepts values in the same format as C<include>. This can be used to exclude
 countries or subregions from a region.
 
-    # countries in Europe which are not in the European Union
-    Geo::Region->new(include => 150, exclude => 'EU')
-    Geo::Region->new(150, exclude => 'EU')
+    # countries in Europe (150) which are not in the European Union (EU)
+    Geo::Region->new( include => EUROPE, exclude => EUROPEAN_UNION )
+    Geo::Region->new( EUROPE, exclude => EUROPEAN_UNION )
 
 =back
 
@@ -292,6 +289,8 @@ by the Geo::Region instance.
 =head1 SEE ALSO
 
 =over
+
+=item L<Geo::Region::Constant>: Constants for UN M.49 and CLDR region codes
 
 =item L<Unicode CLDR: UN M.49 Territory
 Containment|http://unicode.org/cldr/charts/26/supplemental/territory_containment_un_m_49.html>

@@ -1,9 +1,12 @@
 use utf8;
 use open qw( :encoding(UTF-8) :std );
 use English;
-use Test::Most tests => 3;
+use Test::Most tests => 4;
 
-BEGIN { use_ok 'Geo::Region' }
+BEGIN {
+    use_ok 'Geo::Region';
+    use_ok 'Geo::Region::Constant';
+}
 
 diag join ', ' => (
     "Geo::Region v$Geo::Region::VERSION",
