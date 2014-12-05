@@ -39,7 +39,7 @@ use constant WESTERN_ASIA       => '145';
 use constant WESTERN_EUROPE     => '155';
 use constant WORLD              => '001';
 
-our $VERSION = '0.04_01';
+our $VERSION = '0.05';
 
 our @EXPORT_OK = qw(
     AFRICA
@@ -90,7 +90,7 @@ Geo::Region::Constant - Constants for UN M.49 and CLDR region codes
 
 =head1 VERSION
 
-This document describes Geo::Region v0.04_01, built with Unicode CLDR v26.
+This document describes Geo::Region::Constant v0.05, built with Unicode CLDR v26.
 
 =head1 SYNOPSIS
 

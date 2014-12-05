@@ -1,5 +1,9 @@
 Revision history for Perl module Geo::Region
 
+0.05 2014-12-05
+ - Added Geo::Region::Constant to provide named constants for all supported
+   region codes
+
 0.04 2014-12-04
  - Added a warning when using the deprecated `region` constructor argument
    instead of `include`
