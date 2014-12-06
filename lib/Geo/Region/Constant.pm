@@ -1,86 +1,39 @@
-package Geo::Region::Constant;
+module Geo::Region::Constant;
 
-use v5.8.1;
-use utf8;
-use strict;
-use warnings;
-use parent 'Exporter';
+constant AFRICA             is export = '002';
+constant AMERICAS           is export = '019';
+constant ASIA               is export = '142';
+constant AUSTRALASIA        is export = '053';
+constant CARIBBEAN          is export = '029';
+constant CENTRAL_AMERICA    is export = '013';
+constant CENTRAL_ASIA       is export = '143';
+constant EASTERN_AFRICA     is export = '014';
+constant EASTERN_ASIA       is export = '030';
+constant EASTERN_EUROPE     is export = '151';
+constant EUROPE             is export = '150';
+constant EUROPEAN_UNION     is export = 'EU';
+constant LATIN_AMERICA      is export = '419';
+constant MELANESIA          is export = '054';
+constant MICRONESIAN_REGION is export = '057';
+constant MIDDLE_AFRICA      is export = '017';
+constant NORTH_AMERICA      is export = '003';
+constant NORTHERN_AFRICA    is export = '015';
+constant NORTHERN_AMERICA   is export = '021';
+constant NORTHERN_EUROPE    is export = '154';
+constant OCEANIA            is export = '009';
+constant OUTLYING_OCEANIA   is export = 'QO';
+constant POLYNESIA          is export = '061';
+constant SOUTH_AMERICA      is export = '005';
+constant SOUTHEAST_ASIA     is export = '035';
+constant SOUTHERN_AFRICA    is export = '018';
+constant SOUTHERN_ASIA      is export = '034';
+constant SOUTHERN_EUROPE    is export = '039';
+constant WESTERN_AFRICA     is export = '011';
+constant WESTERN_ASIA       is export = '145';
+constant WESTERN_EUROPE     is export = '155';
+constant WORLD              is export = '001';
 
-use constant AFRICA             => '002';
-use constant AMERICAS           => '019';
-use constant ASIA               => '142';
-use constant AUSTRALASIA        => '053';
-use constant CARIBBEAN          => '029';
-use constant CENTRAL_AMERICA    => '013';
-use constant CENTRAL_ASIA       => '143';
-use constant EASTERN_AFRICA     => '014';
-use constant EASTERN_ASIA       => '030';
-use constant EASTERN_EUROPE     => '151';
-use constant EUROPE             => '150';
-use constant EUROPEAN_UNION     => 'EU';
-use constant LATIN_AMERICA      => '419';
-use constant MELANESIA          => '054';
-use constant MICRONESIAN_REGION => '057';
-use constant MIDDLE_AFRICA      => '017';
-use constant NORTH_AMERICA      => '003';
-use constant NORTHERN_AFRICA    => '015';
-use constant NORTHERN_AMERICA   => '021';
-use constant NORTHERN_EUROPE    => '154';
-use constant OCEANIA            => '009';
-use constant OUTLYING_OCEANIA   => 'QO';
-use constant POLYNESIA          => '061';
-use constant SOUTH_AMERICA      => '005';
-use constant SOUTHEAST_ASIA     => '035';
-use constant SOUTHERN_AFRICA    => '018';
-use constant SOUTHERN_ASIA      => '034';
-use constant SOUTHERN_EUROPE    => '039';
-use constant WESTERN_AFRICA     => '011';
-use constant WESTERN_ASIA       => '145';
-use constant WESTERN_EUROPE     => '155';
-use constant WORLD              => '001';
-
-our $VERSION = '0.05';
-
-our @EXPORT_OK = qw(
-    AFRICA
-    AMERICAS
-    ASIA
-    AUSTRALASIA
-    CARIBBEAN
-    CENTRAL_AMERICA
-    CENTRAL_ASIA
-    EASTERN_AFRICA
-    EASTERN_ASIA
-    EASTERN_EUROPE
-    EUROPE
-    EUROPEAN_UNION
-    LATIN_AMERICA
-    MELANESIA
-    MICRONESIAN_REGION
-    MIDDLE_AFRICA
-    NORTH_AMERICA
-    NORTHERN_AFRICA
-    NORTHERN_AMERICA
-    NORTHERN_EUROPE
-    OCEANIA
-    OUTLYING_OCEANIA
-    POLYNESIA
-    SOUTH_AMERICA
-    SOUTHEAST_ASIA
-    SOUTHERN_AFRICA
-    SOUTHERN_ASIA
-    SOUTHERN_EUROPE
-    WESTERN_AFRICA
-    WESTERN_ASIA
-    WESTERN_EUROPE
-    WORLD
-);
-
-our %EXPORT_TAGS = ( all => \@EXPORT_OK );
-
-1;
-
-__END__
+=begin pod
 
 =encoding UTF-8
 
@@ -171,3 +124,5 @@ L<code.shutterstock.com|http://code.shutterstock.com/>.
 
 This library is free software; you can redistribute it and/or modify it under
 the same terms as Perl itself.
+
+=end pod

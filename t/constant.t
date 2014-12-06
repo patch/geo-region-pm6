@@ -1,5 +1,5 @@
 use Test;
-use Geo::Region::Constant <:all>;
+use Geo::Region::Constant;
 
 plan 6;
 
