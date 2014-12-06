@@ -1,18 +1,12 @@
-use utf8;
-use open qw( :encoding(UTF-8) :std );
-use English;
-use Test::Most tests => 4;
+use Test;
+use Geo::Region;
 
-BEGIN {
-    use_ok 'Geo::Region';
-    use_ok 'Geo::Region::Constant';
-}
+plan 4;
 
-diag join ', ' => (
-    "Geo::Region v$Geo::Region::VERSION",
-    "Moo v$Moo::VERSION",
-    "Perl $PERL_VERSION ($EXECUTABLE_NAME)",
-);
+diag "$*PERL $*VM ($*EXECUTABLE)";
 
-my $obj = new_ok 'Geo::Region';
-can_ok $obj, qw( contains is_within countries );
+my $obj = Geo::Region.new;
+ok $obj.isa(Geo::Region), 'isa Geo::Region';
+ok $obj.can('contains'),  'can contains';
+ok $obj.can('is_within'), 'can is_within';
+ok $obj.can('countries'), 'can countries';

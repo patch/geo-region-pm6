@@ -1,143 +1,132 @@
-use utf8;
-use open qw( :encoding(UTF-8) :std );
-use Test::Most tests => 10;
+use Test;
 use Geo::Region;
 
-subtest 'default empty region' => sub {
-    plan tests => 2;
-    my $r = Geo::Region->new;
+plan 9;
 
-    ok        !$r->is_within(1),     'not within world';
-    is_deeply [$r->countries],   [], 'no countries';
-};
+subtest {
+    plan 2;
+    my $r = Geo::Region.new;
 
-subtest 'explicit empty region' => sub {
-    plan tests => 2;
-    my $r = Geo::Region->new(include => []);
+    nok       $r.is_within(1),  'not within world';
+    is_deeply $r.countries, [], 'no countries';
+}, 'default empty region';
 
-    ok        !$r->is_within(1),     'not within world';
-    is_deeply [$r->countries],   [], 'no countries';
-};
+subtest {
+    plan 2;
+    my $r = Geo::Region.new(include => []);
 
-subtest 'single argument instantiation' => sub {
-    plan tests => 1;
-    my $r = Geo::Region->new(53);
+    nok       $r.is_within(1),  'not within world';
+    is_deeply $r.countries, [], 'no countries';
+}, 'explicit empty region';
 
-    is_deeply [$r->countries], [qw( AU NF NZ )], 'expected countries';
-};
+subtest {
+    plan 1;
+    my $r = Geo::Region.new(53);
 
-subtest 'deprecated region param' => sub {
-    plan tests => 2;
-    my $r;
-    warning_like {
-        $r = Geo::Region->new(region => 53)
-    } qr/deprecated/, 'deprecated argument warning';
+    is_deeply $r.countries, [< AU NF NZ >], 'expected countries';
+}, 'single argument instantiation';
 
-    is_deeply [$r->countries], [qw( AU NF NZ )], 'expected countries';
-};
+subtest {
+    plan 44;
+    my $r = Geo::Region.new(include => 1);
 
-subtest 'World (001) superregion' => sub {
-    plan tests => 44;
-    my $r = Geo::Region->new(include => 1);
+    ok $r.is_within(1),    'region is within itself';
+    ok $r.contains(1),     'region contains itself';
+    ok $r.contains(2),     'region contains subregion';
+    ok $r.contains(11),    'region contains subsubregion';
+    ok $r.contains('011'), 'region contains subsubregion string';
+    ok $r.contains('BF'),  'region contains country';
+    ok $r.contains('bf'),  'region contains lowercase country';
+    ok $r.contains( 1, 2, 11, 'BF' ), 'multiple containment args';
+    ok $r.contains([1, 2, 11, 'BF']), 'arrayreg containment arg';
 
-    ok $r->is_within(1),    'region is within itself';
-    ok $r->contains(1),     'region contains itself';
-    ok $r->contains(2),     'region contains subregion';
-    ok $r->contains(11),    'region contains subsubregion';
-    ok $r->contains('011'), 'region contains subsubregion string';
-    ok $r->contains('BF'),  'region contains country';
-    ok $r->contains('bf'),  'region contains lowercase country';
-    ok $r->contains( 1, 2, 11, 'BF' ), 'multiple containment args';
-    ok $r->contains([1, 2, 11, 'BF']), 'arrayreg containment arg';
+    my @countries = $r.countries;
+    is        @countries.elems,      256,             'has expected # of countries';
+    cmp_ok    @countries.join, '~~', /^<:Lu>+$/,      'countries are uppercase';
+    is_deeply @countries,            @countries.sort, 'countries are sorted';
 
-    my @countries = $r->countries;
-    is         @countries,  256,               'has expected # of countries';
-    like      "@countries", qr/^[A-Z ]+$/,     'countries are uppercase';
-    is_deeply \@countries,  [sort @countries], 'countries are sorted';
-
-    my %returns_country = map { $_ => 1 } @countries;
     # these codes are: 1. deprecated; 2. grouping; and 3. aliases
-    for my $code (qw(
+    for <
         AN BU CS DD FX NT QU SU TP YD YU ZR
         EU QO
         QU UK
-    )) {
-        ok $r->contains($code),      "contains code $code";
-        ok !$returns_country{$code}, "does not return code $code";
+    > -> $code {
+        ok $r.contains($code),        "contains code $code";
+        isnt $code, $r.countries.any, "does not return code $code";
     }
 
-};
+}, 'World (001) superregion';
 
-subtest 'Mexico (MX) country' => sub {
-    plan tests => 12;
-    my $r = Geo::Region->new(include => 'MX');
+subtest {
+    plan 12;
+    my $r = Geo::Region.new(include => 'MX');
 
-    ok $r->contains('MX'),  'country contains itself';
-    ok $r->contains('mx'),  'country contains itself, case insensitive';
-    ok $r->is_within('MX'), 'country is within itself';
-    ok $r->is_within('mx'), 'country is within itself, case insensitive';
-    ok $r->is_within(13),   'within Central America (013) region';
-    ok $r->is_within(19),   'within Americas (019) region';
-    ok $r->is_within(1),    'within World (001) region';
-    ok $r->is_within(3),    'within North America (003) grouping';
-    ok $r->is_within(419),  'within Latin America (419) grouping';
-    ok $r->is_within( 1, 3, 13, 19, 419, 'MX' ), 'multiple within args';
-    ok $r->is_within([1, 3, 13, 19, 419, 'MX']), 'arrayref within arg';
-    is_deeply [$r->countries], ['MX'], 'only one country in a country';
-};
+    ok $r.contains('MX'),  'country contains itself';
+    ok $r.contains('mx'),  'country contains itself, case insensitive';
+    ok $r.is_within('MX'), 'country is within itself';
+    ok $r.is_within('mx'), 'country is within itself, case insensitive';
+    ok $r.is_within(13),   'within Central America (013) region';
+    ok $r.is_within(19),   'within Americas (019) region';
+    ok $r.is_within(1),    'within World (001) region';
+    ok $r.is_within(3),    'within North America (003) grouping';
+    ok $r.is_within(419),  'within Latin America (419) grouping';
+    ok $r.is_within( 1, 3, 13, 19, 419, 'MX' ), 'multiple within args';
+    ok $r.is_within([1, 3, 13, 19, 419, 'MX']), 'arrayref within arg';
+    is_deeply $r.countries, ['MX'], 'only one country in a country';
+}, 'Mexico (MX) country';
 
-subtest 'Central Asia (143) + Russia (RU)' => sub {
-    plan tests => 6;
-    my $r = Geo::Region->new(include => [143, 'RU']);
+subtest {
+    plan 6;
+    my $r = Geo::Region.new(include => [143, 'RU']);
 
-    ok $r->contains(143, 'RU'), 'contains both included regions';
-    ok $r->contains('KZ'),      'contains regions within any included';
-    ok $r->is_within(1),        'within regions shared by all included';
-    ok !$r->is_within(143),     'not within either included region';
-    ok !$r->is_within('RU'),    'not within either included region';
+    ok  $r.contains(143, 'RU'), 'contains both included regions';
+    ok  $r.contains('KZ'),      'contains regions within any included';
+    ok  $r.is_within(1),        'within regions shared by all included';
+    nok $r.is_within(143),      'not within either included region';
+    nok $r.is_within('RU'),     'not within either included region';
 
     is_deeply(
-        [$r->countries],
-        [qw( KG KZ RU TJ TM UZ )],
+        $r.countries,
+        [< KG KZ RU TJ TM UZ >],
         'return all countries within any included'
     );
-};
+}, 'Central Asia (143) + Russia (RU)';
 
-subtest 'Europe (150) − European Union (EU)' => sub {
-    plan tests => 5;
-    my $r = Geo::Region->new(include => 150, exclude => 'EU');
+subtest {
+    plan 5;
+    my $r = Geo::Region.new(include => 150, exclude => 'EU');
 
-    ok $r->contains('CH'),  'contains countries !within excluded region';
-    ok $r->contains(155),   'contains regions within included region';
-    ok !$r->contains('EU'), '!contains excluded region';
-    ok !$r->contains('FR'), '!contains countries within excluded region';
+    ok  $r.contains('CH'), 'contains countries !within excluded region';
+    ok  $r.contains(155),  'contains regions within included region';
+    nok $r.contains('EU'), '!contains excluded region';
+    nok $r.contains('FR'), '!contains countries within excluded region';
 
     is_deeply(
-        [$r->countries],
-        [qw( AD AL AX BA BY CH FO GG GI IM IS JE LI MC MD ME MK NO RS RU SJ SM UA VA XK )],
+        $r.countries,
+        [< AD AL AX BA BY CH FO GG GI IM IS JE LI MC MD ME MK NO RS RU SJ SM UA VA XK >],
         'return all countries within included except excluded'
     );
-};
+}, 'Europe (150) − European Union (EU)';
 
-subtest 'deprecated alias QU for EU' => sub {
-    plan tests => 6;
-    my $r = Geo::Region->new(include => 'QU');
+subtest {
+    plan 6;
+    my $r = Geo::Region.new(include => 'QU');
 
-    ok $r->is_within('EU'), 'within official region';
-    ok $r->is_within('QU'), 'within deprecated region';
-    ok $r->contains('EU'),  'contains official region';
-    ok $r->contains('QU'),  'contains deprecated region';
-    ok $r->contains('GB'),  'contains official country';
-    ok $r->contains('UK'),  'contains deprecated country';
-};
+    ok $r.is_within('EU'), 'within official region';
+    ok $r.is_within('QU'), 'within deprecated region';
+    ok $r.contains('EU'),  'contains official region';
+    ok $r.contains('QU'),  'contains deprecated region';
+    ok $r.contains('GB'),  'contains official country';
+    ok $r.contains('UK'),  'contains deprecated country';
+}, 'deprecated alias QU for EU';
 
-subtest 'deprecated alias UK for GB' => sub {
-    plan tests => 5;
-    my $r = Geo::Region->new(include => 'UK');
+subtest {
+    plan 5;
+    my $r = Geo::Region.new(include => 'UK');
 
-    ok $r->is_within('GB'), 'within official country';
-    ok $r->is_within('UK'), 'within deprecated country';
-    ok $r->contains('GB'),  'contains official country';
-    ok $r->contains('UK'),  'contains deprecated country';
-    is_deeply [$r->countries], ['GB'], 'only official countries';
-};
+    ok $r.is_within('GB'), 'within official country';
+    ok $r.is_within('UK'), 'within deprecated country';
+    ok $r.contains('GB'),  'contains official country';
+    ok $r.contains('UK'),  'contains deprecated country';
+    is_deeply $r.countries, ['GB'], 'only official countries';
+}, 'deprecated alias UK for GB';

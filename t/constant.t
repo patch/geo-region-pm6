@@ -1,7 +1,7 @@
-use utf8;
-use open qw( :encoding(UTF-8) :std );
-use Test::Most tests => 6;
-use Geo::Region::Constant qw( :all );
+use Test;
+use Geo::Region::Constant <:all>;
+
+plan 6;
 
 is WORLD,            '001', 'world region';
 is EUROPE,           '150', 'continent region';
