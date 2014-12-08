@@ -95,7 +95,8 @@ data
 Containment|http://unicode.org/cldr/charts/26/supplemental/territory_containment_un_m_49.html>
 =item L<United Nations: UN M.49 Standard Country, Area, & Region
 Codes|http://unstats.un.org/unsd/methods/m49/m49regin.htm>
-=item L<Geo::Region::Constant> for Perl 5
+=item L<Geo::Region::Constant|https://metacpan.org/pod/Geo::Region::Constant>
+for Perl 5
 
 =head1 AUTHOR
 
@@ -106,6 +107,6 @@ Nick Patch <patch@cpan.org>
 © 2014 Nick Patch
 
 This library is free software; you can redistribute it and/or modify it under
-the same terms as Perl itself.
+the same terms as Perl 6 itself.
 
 =end pod

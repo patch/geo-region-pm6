@@ -46,7 +46,7 @@ may be used with this class. Note when using the `0`-padded format that it must
 be quoted as a string so as not to be treated as on octal literal. The CLDR also
 adds two additional two-letter region codes which are supported: **EU** for the
 European Union and **QO** for Outlying Oceania. These region codes are all
-available as constants in [Geo::Region::Constant](https://metacpan.org/pod/Geo::Region::Constant).
+available as constants in [Geo::Region::Constant](lib/Geo/Region/Constant.pm).
 
 ## Countries
 
@@ -131,4 +131,4 @@ Nick Patch <patch@cpan.org>
 © 2014 Nick Patch
 
 This library is free software; you can redistribute it and/or modify it under
-the same terms as Perl itself.
+the same terms as Perl 6 itself.
