@@ -121,32 +121,31 @@ method countries () {
 
 =begin pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Geo::Region - Geographical regions and groupings using UN M.49 and CLDR data
 
 =head1 VERSION
 
-This document describes Geo::Region v0.05, built with Unicode CLDR v26.
+This document describes Geo::Region for Perl 6, built with Unicode CLDR v26.
 
 =head1 SYNOPSIS
 
     use Geo::Region;
-    use Geo::Region::Constant qw( :all );
+    use Geo::Region::Constant;
 
-    $amer = Geo::Region->new( AMERICAS );
-    $emea = Geo::Region->new([ EUROPE, WESTERN_ASIA, AFRICA ]);
-    $apac = Geo::Region->new([ ASIA, OCEANIA ], exclude => WESTERN_ASIA );
+    $amer = Geo::Region.new(include => AMERICAS);
+    $emea = Geo::Region.new(include => (EUROPE, WESTERN_ASIA, AFRICA));
+    $apac = Geo::Region.new(include => (ASIA, OCEANIA),
+                            exclude => WESTERN_ASIA);
 
-    if ( $amer->contains($country) ) {
+    if $amer.contains($country) {
         # country is in the Americas (US, MX, BR, etc.)
     }
-    elsif ( $emea->contains($country) ) {
+    elsif $emea.contains($country) {
         # country is in Europe, the Middle East, and Africa (FR, SA, ZW, etc.)
     }
-    elsif ( $apac->contains($country) ) {
+    elsif $apac.contains($country) {
         # country is in Asia-Pacific (JP, TH, AU, etc.)
     }
 
@@ -183,89 +182,79 @@ the United Kingdom is supported as an alias of the official code B<GB>.
 The C<new> class method is used to construct a Geo::Region object along with the
 C<include> argument and optional C<exclude> argument.
 
-=over
-
-=item C<include>
+=begin item
+C<include>
 
 Accepts either a single region code or an array reference of region or country
-codes to be included in the resulting custom region. When passed to the C<new>
-constructor as the first or only argument, the value may be given without the
-C<include> key.
+codes to be included in the resulting custom region.
 
     # countries in the European Union (EU)
-    Geo::Region->new( include => EUROPEAN_UNION )
-    Geo::Region->new( EUROPEAN_UNION )
+    Geo::Region.new(include => EUROPEAN_UNION)
 
     # countries in Asia (142) plus Russia (RU)
-    Geo::Region->new( include => [ ASIA, 'RU' ])
-    Geo::Region->new([ ASIA, 'RU' ])
+    Geo::Region.new(include => (ASIA, 'RU'))
 
-=item C<exclude>
+=end item
+
+=begin item
+C<exclude>
 
 Accepts values in the same format as C<include>. This can be used to exclude
 countries or subregions from a region.
 
     # countries in Europe (150) which are not in the European Union (EU)
-    Geo::Region->new( include => EUROPE, exclude => EUROPEAN_UNION )
-    Geo::Region->new( EUROPE, exclude => EUROPEAN_UNION )
+    Geo::Region.new(include => EUROPE, exclude => EUROPEAN_UNION)
 
-=back
+=end item
 
 =head2 Methods
 
-=over
-
-=item C<contains>
+=begin item
+C<contains>
 
 Given a country or region code, determines if the region represented by the
 Geo::Region instance contains it.
 
-    if ( $region->contains($country) ) {
+    if $region.contains($country) {
 
-=item C<is_within>
+=end item
+
+=begin item
+C<is_within>
 
 Given a region code, determines if all the countries and regions represented by
 the Geo::Region instance are within it.
 
-    if ( $subregion->is_within($region) ) {
+    if $subregion.is_within($region) {
 
-=item C<countries>
+=end item
+
+=begin item
+C<countries>
 
 Returns a list of country codes of the countries within the region represented
 by the Geo::Region instance.
 
-    for ( $region->countries ) {
+    for $region.countries -> $country {
 
-=back
+=end item
 
 =head1 SEE ALSO
 
-=over
-
-=item L<Geo::Region::Constant>: Constants for UN M.49 and CLDR region codes
-
+=item L<Geo::Region::Constant> — Constants for UN M.49 and CLDR region codes
 =item L<Unicode CLDR: UN M.49 Territory
 Containment|http://unicode.org/cldr/charts/26/supplemental/territory_containment_un_m_49.html>
-
 =item L<United Nations: UN M.49 Standard Country, Area, & Region
 Codes|http://unstats.un.org/unsd/methods/m49/m49regin.htm>
-
-=item L<Locale::CLDR: Territory Containment|Locale::CLDR/Territory-Containment>
-
-=back
+=item L<Geo::Region> for Perl 5
 
 =head1 AUTHOR
 
 Nick Patch <patch@cpan.org>
 
-This project is brought to you by L<Perl CLDR|http://perl-cldr.github.io/> and
-L<Shutterstock|http://www.shutterstock.com/>. Additional open source projects
-from Shutterstock can be found at
-L<code.shutterstock.com|http://code.shutterstock.com/>.
-
 =head1 COPYRIGHT AND LICENSE
 
-© 2014 Shutterstock, Inc.
+© 2014 Nick Patch
 
 This library is free software; you can redistribute it and/or modify it under
 the same terms as Perl itself.

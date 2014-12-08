@@ -35,8 +35,6 @@ constant WORLD              is export = '001';
 
 =begin pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 Geo::Region::Constant - Constants for UN M.49 and CLDR region codes
@@ -47,9 +45,7 @@ This document describes Geo::Region::Constant v0.05, built with Unicode CLDR v26
 
 =head1 SYNOPSIS
 
-    use Geo::Region::Constant qw( AFRICA AMERICAS ASIA EUROPE OCEANIA );
-
-    use Geo::Region::Constant qw( :all );
+    use Geo::Region::Constant;
 
 =head1 DESCRIPTION
 
@@ -57,9 +53,6 @@ Exportable constants for UN M.49 region codes, including CLDR extensions,
 designed for use with L<Geo::Region>.
 
 =head2 Constants
-
-No constants are exported by default. They may all be exported using the C<:all>
-export tag.
 
     WORLD                   001
     • AFRICA                002
@@ -96,31 +89,21 @@ export tag.
 
 =head1 SEE ALSO
 
-=over
-
-=item L<Geo::Region::Constant>: Geographical regions and groupings using UN M.49
-and CLDR data
-
+=item L<Geo::Region> — Geographical regions and groupings using UN M.49 and CLDR
+data
 =item L<Unicode CLDR: UN M.49 Territory
 Containment|http://unicode.org/cldr/charts/26/supplemental/territory_containment_un_m_49.html>
-
 =item L<United Nations: UN M.49 Standard Country, Area, & Region
 Codes|http://unstats.un.org/unsd/methods/m49/m49regin.htm>
-
-=back
+=item L<Geo::Region::Constant> for Perl 5
 
 =head1 AUTHOR
 
 Nick Patch <patch@cpan.org>
 
-This project is brought to you by L<Perl CLDR|http://perl-cldr.github.io/> and
-L<Shutterstock|http://www.shutterstock.com/>. Additional open source projects
-from Shutterstock can be found at
-L<code.shutterstock.com|http://code.shutterstock.com/>.
-
 =head1 COPYRIGHT AND LICENSE
 
-© 2014 Shutterstock, Inc.
+© 2014 Nick Patch
 
 This library is free software; you can redistribute it and/or modify it under
 the same terms as Perl itself.
