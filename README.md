@@ -95,13 +95,13 @@ The `new` class method is used to construct a Geo::Region object along with the
     if $region.contains($country) {
     ```
 
-- `is_within`
+- `is-within`
 
     Given a region code, determines if all the countries and regions represented by
     the Geo::Region instance are within it.
 
     ```perl
-    if $subregion.is_within($region) {
+    if $subregion.is-within($region) {
     ```
 
 - `countries`

@@ -7,7 +7,7 @@ subtest {
     plan 2;
     my $r = Geo::Region.new;
 
-    nok       $r.is_within(1),       'not within world';
+    nok       $r.is-within(1),       'not within world';
     is_deeply $r.countries, ().list, 'no countries';
 }, 'default empty region';
 
@@ -15,7 +15,7 @@ subtest {
     plan 2;
     my $r = Geo::Region.new(include => []);
 
-    nok       $r.is_within(1),       'not within world';
+    nok       $r.is-within(1),       'not within world';
     is_deeply $r.countries, ().list, 'no countries';
 }, 'explicit empty region';
 
@@ -23,7 +23,7 @@ subtest {
     plan 44;
     my $r = Geo::Region.new(include => 1);
 
-    ok $r.is_within(1),    'region is within itself';
+    ok $r.is-within(1),    'region is within itself';
     ok $r.contains(1),     'region contains itself';
     ok $r.contains(2),     'region contains subregion';
     ok $r.contains(11),    'region contains subsubregion';
@@ -54,15 +54,15 @@ subtest {
 
     ok $r.contains('MX'),  'country contains itself';
     ok $r.contains('mx'),  'country contains itself, case insensitive';
-    ok $r.is_within('MX'), 'country is within itself';
-    ok $r.is_within('mx'), 'country is within itself, case insensitive';
-    ok $r.is_within(13),   'within Central America (013) region';
-    ok $r.is_within(19),   'within Americas (019) region';
-    ok $r.is_within(1),    'within World (001) region';
-    ok $r.is_within(3),    'within North America (003) grouping';
-    ok $r.is_within(419),  'within Latin America (419) grouping';
-    ok $r.is_within( 1, 3, 13, 19, 419, 'MX' ), 'multiple within args';
-    ok $r.is_within([1, 3, 13, 19, 419, 'MX']), 'arrayref within arg';
+    ok $r.is-within('MX'), 'country is within itself';
+    ok $r.is-within('mx'), 'country is within itself, case insensitive';
+    ok $r.is-within(13),   'within Central America (013) region';
+    ok $r.is-within(19),   'within Americas (019) region';
+    ok $r.is-within(1),    'within World (001) region';
+    ok $r.is-within(3),    'within North America (003) grouping';
+    ok $r.is-within(419),  'within Latin America (419) grouping';
+    ok $r.is-within( 1, 3, 13, 19, 419, 'MX' ), 'multiple within args';
+    ok $r.is-within([1, 3, 13, 19, 419, 'MX']), 'arrayref within arg';
     is_deeply $r.countries, <MX>.list, 'only one country in a country';
 }, 'Mexico (MX) country';
 
@@ -72,9 +72,9 @@ subtest {
 
     ok  $r.contains(143, 'RU'), 'contains both included regions';
     ok  $r.contains('KZ'),      'contains regions within any included';
-    ok  $r.is_within(1),        'within regions shared by all included';
-    nok $r.is_within(143),      'not within either included region';
-    nok $r.is_within('RU'),     'not within either included region';
+    ok  $r.is-within(1),        'within regions shared by all included';
+    nok $r.is-within(143),      'not within either included region';
+    nok $r.is-within('RU'),     'not within either included region';
 
     is_deeply(
         $r.countries,
@@ -102,8 +102,8 @@ subtest {
     plan 6;
     my $r = Geo::Region.new(include => 'QU');
 
-    ok $r.is_within('EU'), 'within official region';
-    ok $r.is_within('QU'), 'within deprecated region';
+    ok $r.is-within('EU'), 'within official region';
+    ok $r.is-within('QU'), 'within deprecated region';
     ok $r.contains('EU'),  'contains official region';
     ok $r.contains('QU'),  'contains deprecated region';
     ok $r.contains('GB'),  'contains official country';
@@ -114,8 +114,8 @@ subtest {
     plan 5;
     my $r = Geo::Region.new(include => 'UK');
 
-    ok $r.is_within('GB'), 'within official country';
-    ok $r.is_within('UK'), 'within deprecated country';
+    ok $r.is-within('GB'), 'within official country';
+    ok $r.is-within('UK'), 'within deprecated country';
     ok $r.contains('GB'),  'contains official country';
     ok $r.contains('UK'),  'contains deprecated country';
     is_deeply $r.countries, <GB>.list, 'only official countries';

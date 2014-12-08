@@ -107,7 +107,7 @@ method contains (*@regions) {
     return ?self!children{ coerce_regions(@regions).all };
 }
 
-method is_within (*@regions) {
+method is-within (*@regions) {
     return ?self!parents{ coerce_regions(@regions).all };
 }
 
@@ -220,12 +220,12 @@ Geo::Region instance contains it.
 =end item
 
 =begin item
-C<is_within>
+C<is-within>
 
 Given a region code, determines if all the countries and regions represented by
 the Geo::Region instance are within it.
 
-    if $subregion.is_within($region) {
+    if $subregion.is-within($region) {
 
 =end item
 
