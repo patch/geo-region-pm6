@@ -1,5 +1,16 @@
 class Geo::Region;
 
+has @!includes;
+has @!excludes;
+has @!countries;
+has $!children;
+has $!parents;
+
+submethod BUILD (:$include, :$exclude) {
+    @!includes = coerce_regions($include);
+    @!excludes = coerce_regions($exclude);
+}
+
 my %children_of = (
     # regions of subregions
     '001' => <002 009 019 142 150>,
@@ -52,17 +63,6 @@ sub coerce_regions (*@regions) {
         .grep( *.defined )\
         .map({ /^ <[0..9]> ** 1..2 $/ ?? .fmt('%03d') !! .uc })\
         .map({ %alias_of{$_} || $_ });
-}
-
-has @!includes;
-has @!excludes;
-has @!countries;
-has $!children;
-has $!parents;
-
-submethod BUILD (:$include, :$exclude) {
-    @!includes = coerce_regions($include);
-    @!excludes = coerce_regions($exclude);
 }
 
 method !children () {
