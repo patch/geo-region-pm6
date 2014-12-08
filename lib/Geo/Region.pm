@@ -132,12 +132,18 @@ This document describes Geo::Region for Perl 6, built with Unicode CLDR v26.
 =head1 SYNOPSIS
 
     use Geo::Region;
-    use Geo::Region::Constant;
+    use Geo::Region::Enum;
 
-    $amer = Geo::Region.new(include => AMERICAS);
-    $emea = Geo::Region.new(include => (EUROPE, WESTERN_ASIA, AFRICA));
-    $apac = Geo::Region.new(include => (ASIA, OCEANIA),
-                            exclude => WESTERN_ASIA);
+    $amer = Geo::Region.new(include => Region::Americas);
+
+    $emea = Geo::Region.new(
+        include => (Region::Europe, Region::WesternAsia, Region::Africa)
+    );
+
+    $apac = Geo::Region.new(
+        include => (Region::Asia, Region::Oceania),
+        exclude => Region::WesternAsia,
+    );
 
     if $amer.contains($country) {
         # country is in the Americas (US, MX, BR, etc.)
@@ -167,7 +173,7 @@ may be used with this class. Note when using the C<0>-padded format that it must
 be quoted as a string so as not to be treated as on octal literal. The CLDR also
 adds two additional two-letter region codes which are supported: B<EU> for the
 European Union and B<QO> for Outlying Oceania. These region codes are all
-available as constants in L<Geo::Region::Constant>.
+available as enumerations in L<Geo::Region::Enum>.
 
 =head2 Countries
 
@@ -189,10 +195,10 @@ Accepts either a single region code or an array reference of region or country
 codes to be included in the resulting custom region.
 
     # countries in the European Union (EU)
-    Geo::Region.new(include => EUROPEAN_UNION)
+    Geo::Region.new(include => Region::EuropeanUnion)
 
     # countries in Asia (142) plus Russia (RU)
-    Geo::Region.new(include => (ASIA, 'RU'))
+    Geo::Region.new(include => (Region::Asia, 'RU'))
 
 =end item
 
@@ -203,7 +209,10 @@ Accepts values in the same format as C<include>. This can be used to exclude
 countries or subregions from a region.
 
     # countries in Europe (150) which are not in the European Union (EU)
-    Geo::Region.new(include => EUROPE, exclude => EUROPEAN_UNION)
+    Geo::Region.new(
+        include => Region::Europe,
+        exclude => Region::EuropeanUnion,
+    )
 
 =end item
 
@@ -241,7 +250,7 @@ by the Geo::Region instance.
 
 =head1 SEE ALSO
 
-=item L<Geo::Region::Constant> — Constants for UN M.49 and CLDR region codes
+=item L<Geo::Region::Enum> — Enumerations for UN M.49 and CLDR region codes
 =item L<Unicode CLDR: UN M.49 Territory
 Containment|http://unicode.org/cldr/charts/26/supplemental/territory_containment_un_m_49.html>
 =item L<United Nations: UN M.49 Standard Country, Area, & Region

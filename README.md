@@ -10,12 +10,18 @@ This document describes Geo::Region for Perl 6, built with Unicode CLDR v26.
 
 ```perl
 use Geo::Region;
-use Geo::Region::Constant;
+use Geo::Region::Enum;
 
-$amer = Geo::Region.new(include => AMERICAS);
-$emea = Geo::Region.new(include => (EUROPE, WESTERN_ASIA, AFRICA));
-$apac = Geo::Region.new(include => (ASIA, OCEANIA),
-                        exclude => WESTERN_ASIA);
+$amer = Geo::Region.new(include => Region::Americas);
+
+$emea = Geo::Region.new(
+    include => (Region::Europe, Region::WesternAsia, Region::Africa)
+);
+
+$apac = Geo::Region.new(
+    include => (Region::Asia, Region::Oceania),
+    exclude => Region::WesternAsia,
+);
 
 if $amer.contains($country) {
     # country is in the Americas (US, MX, BR, etc.)
@@ -46,7 +52,7 @@ may be used with this class. Note when using the `0`-padded format that it must
 be quoted as a string so as not to be treated as on octal literal. The CLDR also
 adds two additional two-letter region codes which are supported: **EU** for the
 European Union and **QO** for Outlying Oceania. These region codes are all
-available as constants in [Geo::Region::Constant](lib/Geo/Region/Constant.pm).
+available as enumerations in [Geo::Region::Enum](lib/Geo/Region/Enum.pm).
 
 ## Countries
 
@@ -68,10 +74,10 @@ The `new` class method is used to construct a Geo::Region object along with the
 
     ```perl
     # countries in the European Union (EU)
-    Geo::Region.new(include => EUROPEAN_UNION)
+    Geo::Region.new(include => Region::EuropeanUnion)
 
     # countries in Asia (142) plus Russia (RU)
-    Geo::Region.new(include => (ASIA, 'RU'))
+    Geo::Region.new(include => (Region::Asia, 'RU'))
     ```
 
 - `exclude`
@@ -81,7 +87,10 @@ The `new` class method is used to construct a Geo::Region object along with the
 
     ```perl
     # countries in Europe (150) which are not in the European Union (EU)
-    Geo::Region.new(include => EUROPE, exclude => EUROPEAN_UNION)
+    Geo::Region.new(
+        include => Region::Europe,
+        exclude => Region::EuropeanUnion,
+    )
     ```
 
 ## Methods
@@ -115,7 +124,7 @@ The `new` class method is used to construct a Geo::Region object along with the
 
 # SEE ALSO
 
-- [Geo::Region::Constant](lib/Geo/Region/Constant.pm) — Constants for UN M.49 and CLDR region codes
+- [Geo::Region::Enum](lib/Geo/Region/Enum.pm) — Enumerations for UN M.49 and CLDR region codes
 - [Unicode CLDR: UN M.49 Territory
 Containment](http://unicode.org/cldr/charts/26/supplemental/territory_containment_un_m_49.html)
 - [United Nations: UN M.49 Standard Country, Area, & Region
