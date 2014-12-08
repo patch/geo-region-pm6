@@ -8,7 +8,7 @@ This document describes Geo::Region for Perl 6, built with Unicode CLDR v26.
 
 # SYNOPSIS
 
-```perl
+```perl6
 use Geo::Region;
 use Geo::Region::Enum;
 
@@ -72,7 +72,7 @@ The `new` class method is used to construct a Geo::Region object along with the
     Accepts either a single region code or an array reference of region or country
     codes to be included in the resulting custom region.
 
-    ```perl
+    ```perl6
     # countries in the European Union (EU)
     Geo::Region.new(include => Region::EuropeanUnion)
 
@@ -85,7 +85,7 @@ The `new` class method is used to construct a Geo::Region object along with the
     Accepts values in the same format as `include`. This can be used to exclude
     countries or subregions from a region.
 
-    ```perl
+    ```perl6
     # countries in Europe (150) which are not in the European Union (EU)
     Geo::Region.new(
         include => Region::Europe,
@@ -100,7 +100,7 @@ The `new` class method is used to construct a Geo::Region object along with the
     Given a country or region code, determines if the region represented by the
     Geo::Region instance contains it.
 
-    ```perl
+    ```perl6
     if $region.contains($country) {
     ```
 
@@ -109,7 +109,7 @@ The `new` class method is used to construct a Geo::Region object along with the
     Given a region code, determines if all the countries and regions represented by
     the Geo::Region instance are within it.
 
-    ```perl
+    ```perl6
     if $subregion.is-within($region) {
     ```
 
@@ -118,7 +118,7 @@ The `new` class method is used to construct a Geo::Region object along with the
     Returns a list of country codes of the countries within the region represented
     by the Geo::Region instance.
 
-    ```perl
+    ```perl6
     for $region.countries -> $country {
     ```
 
