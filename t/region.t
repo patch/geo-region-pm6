@@ -1,30 +1,23 @@
 use Test;
 use Geo::Region;
 
-plan 9;
+plan 8;
 
 subtest {
     plan 2;
     my $r = Geo::Region.new;
 
-    nok       $r.is_within(1),  'not within world';
-    is_deeply $r.countries, [], 'no countries';
+    nok       $r.is_within(1),      'not within world';
+    is_deeply $r.countries, list(), 'no countries';
 }, 'default empty region';
 
 subtest {
     plan 2;
     my $r = Geo::Region.new(include => []);
 
-    nok       $r.is_within(1),  'not within world';
-    is_deeply $r.countries, [], 'no countries';
+    nok       $r.is_within(1),      'not within world';
+    is_deeply $r.countries, list(), 'no countries';
 }, 'explicit empty region';
-
-subtest {
-    plan 1;
-    my $r = Geo::Region.new(53);
-
-    is_deeply $r.countries, [< AU NF NZ >], 'expected countries';
-}, 'single argument instantiation';
 
 subtest {
     plan 44;
@@ -38,12 +31,11 @@ subtest {
     ok $r.contains('BF'),  'region contains country';
     ok $r.contains('bf'),  'region contains lowercase country';
     ok $r.contains( 1, 2, 11, 'BF' ), 'multiple containment args';
-    ok $r.contains([1, 2, 11, 'BF']), 'arrayreg containment arg';
+    ok $r.contains([1, 2, 11, 'BF']), 'arrayref containment arg';
 
-    my @countries = $r.countries;
-    is        @countries.elems,      256,             'has expected # of countries';
-    cmp_ok    @countries.join, '~~', /^<:Lu>+$/,      'countries are uppercase';
-    is_deeply @countries,            @countries.sort, 'countries are sorted';
+    is        $r.countries.elems,      256,               'has expected # of countries';
+    cmp_ok    $r.countries.join, '~~', /^<:Lu>+$/,        'countries are uppercase';
+    is_deeply $r.countries,            $r.countries.sort, 'countries are sorted';
 
     # these codes are: 1. deprecated; 2. grouping; and 3. aliases
     for <
@@ -54,7 +46,6 @@ subtest {
         ok $r.contains($code),        "contains code $code";
         isnt $code, $r.countries.any, "does not return code $code";
     }
-
 }, 'World (001) superregion';
 
 subtest {
@@ -72,7 +63,7 @@ subtest {
     ok $r.is_within(419),  'within Latin America (419) grouping';
     ok $r.is_within( 1, 3, 13, 19, 419, 'MX' ), 'multiple within args';
     ok $r.is_within([1, 3, 13, 19, 419, 'MX']), 'arrayref within arg';
-    is_deeply $r.countries, ['MX'], 'only one country in a country';
+    is_deeply $r.countries, list('MX'), 'only one country in a country';
 }, 'Mexico (MX) country';
 
 subtest {
@@ -87,7 +78,7 @@ subtest {
 
     is_deeply(
         $r.countries,
-        [< KG KZ RU TJ TM UZ >],
+        <KG KZ RU TJ TM UZ>,
         'return all countries within any included'
     );
 }, 'Central Asia (143) + Russia (RU)';
@@ -103,7 +94,7 @@ subtest {
 
     is_deeply(
         $r.countries,
-        [< AD AL AX BA BY CH FO GG GI IM IS JE LI MC MD ME MK NO RS RU SJ SM UA VA XK >],
+        <AD AL AX BA BY CH FO GG GI IM IS JE LI MC MD ME MK NO RS RU SJ SM UA VA XK>,
         'return all countries within included except excluded'
     );
 }, 'Europe (150) − European Union (EU)';
@@ -128,5 +119,5 @@ subtest {
     ok $r.is_within('UK'), 'within deprecated country';
     ok $r.contains('GB'),  'contains official country';
     ok $r.contains('UK'),  'contains deprecated country';
-    is_deeply $r.countries, ['GB'], 'only official countries';
+    is_deeply $r.countries, list('GB'), 'only official countries';
 }, 'deprecated alias UK for GB';

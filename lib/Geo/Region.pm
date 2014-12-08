@@ -1,173 +1,110 @@
-package Geo::Region;
-
-use v5.8.1;
-use utf8;
-use Carp qw( carp );
-use Scalar::Util qw( looks_like_number weaken );
-use List::Util qw( all any );
-use Moo;
-
-our $VERSION = '0.05';
+class Geo::Region;
 
 my %children_of = (
     # regions of subregions
-    '001' => [qw( 002 009 019 142 150 )],
-    '002' => [qw( 011 014 015 017 018 )],
-    '003' => [qw( 013 021 029 )],
-    '009' => [qw( 053 054 057 061 QO )],
-    '019' => [qw( 003 005 013 021 029 419 )],
-    '142' => [qw( 030 034 035 143 145 )],
-    '150' => [qw( 039 151 154 155 EU )],
-    '419' => [qw( 005 013 029 )],
+    '001' => <002 009 019 142 150>,
+    '002' => <011 014 015 017 018>,
+    '003' => <013 021 029>,
+    '009' => <053 054 057 061 QO>,
+    '019' => <003 005 013 021 029 419>,
+    '142' => <030 034 035 143 145>,
+    '150' => <039 151 154 155 EU>,
+    '419' => <005 013 029>,
     # regions of countries and territories
-    '005' => [qw( AR BO BR CL CO EC FK GF GY PE PY SR UY VE )],
-    '011' => [qw( BF BJ CI CV GH GM GN GW LR ML MR NE NG SH SL SN TG )],
-    '013' => [qw( BZ CR GT HN MX NI PA SV )],
-    '014' => [qw( BI DJ ER ET KE KM MG MU MW MZ RE RW SC SO TZ UG YT ZM ZW )],
-    '015' => [qw( DZ EA EG EH IC LY MA SD SS TN )],
-    '017' => [qw( AO CD CF CG CM GA GQ ST TD ZR )],
-    '018' => [qw( BW LS NA SZ ZA )],
-    '021' => [qw( BM CA GL PM US )],
-    '029' => [qw( AG AI AN AW BB BL BQ BS CU CW DM DO GD GP HT JM KN KY LC MF MQ MS PR SX TC TT VC VG VI )],
-    '030' => [qw( CN HK JP KP KR MN MO TW )],
-    '034' => [qw( AF BD BT IN IR LK MV NP PK )],
-    '035' => [qw( BN BU ID KH LA MM MY PH SG TH TL TP VN )],
-    '039' => [qw( AD AL BA CS ES GI GR HR IT ME MK MT PT RS SI SM VA XK YU )],
-    '053' => [qw( AU NF NZ )],
-    '054' => [qw( FJ NC PG SB VU )],
-    '057' => [qw( FM GU KI MH MP NR PW )],
-    '061' => [qw( AS CK NU PF PN TK TO TV WF WS )],
-    '143' => [qw( KG KZ TJ TM UZ )],
-    '145' => [qw( AE AM AZ BH CY GE IL IQ JO KW LB NT OM PS QA SA SY TR YD YE )],
-    '151' => [qw( BG BY CZ HU MD PL RO RU SK SU UA )],
-    '154' => [qw( AX DK EE FI FO GB GG IE IM IS JE LT LV NO SE SJ )],
-    '155' => [qw( AT BE CH DD DE FR FX LI LU MC NL )],
-    'EU'  => [qw( AT BE BG CY CZ DE DK EE ES FI FR GB GR HR HU IE IT LT LU LV MT NL PL PT RO SE SI SK )],
-    'QO'  => [qw( AC AQ BV CC CP CX DG GS HM IO TA TF UM )],
+    '005' => <AR BO BR CL CO EC FK GF GY PE PY SR UY VE>,
+    '011' => <BF BJ CI CV GH GM GN GW LR ML MR NE NG SH SL SN TG>,
+    '013' => <BZ CR GT HN MX NI PA SV>,
+    '014' => <BI DJ ER ET KE KM MG MU MW MZ RE RW SC SO TZ UG YT ZM ZW>,
+    '015' => <DZ EA EG EH IC LY MA SD SS TN>,
+    '017' => <AO CD CF CG CM GA GQ ST TD ZR>,
+    '018' => <BW LS NA SZ ZA>,
+    '021' => <BM CA GL PM US>,
+    '029' => <AG AI AN AW BB BL BQ BS CU CW DM DO GD GP HT JM KN KY LC MF MQ MS PR SX TC TT VC VG VI>,
+    '030' => <CN HK JP KP KR MN MO TW>,
+    '034' => <AF BD BT IN IR LK MV NP PK>,
+    '035' => <BN BU ID KH LA MM MY PH SG TH TL TP VN>,
+    '039' => <AD AL BA CS ES GI GR HR IT ME MK MT PT RS SI SM VA XK YU>,
+    '053' => <AU NF NZ>,
+    '054' => <FJ NC PG SB VU>,
+    '057' => <FM GU KI MH MP NR PW>,
+    '061' => <AS CK NU PF PN TK TO TV WF WS>,
+    '143' => <KG KZ TJ TM UZ>,
+    '145' => <AE AM AZ BH CY GE IL IQ JO KW LB NT OM PS QA SA SY TR YD YE>,
+    '151' => <BG BY CZ HU MD PL RO RU SK SU UA>,
+    '154' => <AX DK EE FI FO GB GG IE IM IS JE LT LV NO SE SJ>,
+    '155' => <AT BE CH DD DE FR FX LI LU MC NL>,
+    'EU'  => <AT BE BG CY CZ DE DK EE ES FI FR GB GR HR HU IE IT LT LU LV MT NL PL PT RO SE SI SK>,
+    'QO'  => <AC AQ BV CC CP CX DG GS HM IO TA TF UM>,
 );
 
 # codes excluded from country list due to being deprecated or grouping container
-my %noncountries = map { $_ => 1 } qw(
+my $noncountries = set <
     AN BU CS DD FX NT SU TP YD YU ZR
     EU QO
-);
+>;
 
 # deprecated aliases
-my %alias_of = (
-    UK => 'GB',
-    QU => 'EU',
-);
+my %alias_of = :QU<EU>, :UK<GB>;
 
-sub coerce_regions {
-    map  { $alias_of{$_} || $_ }
-    map  { looks_like_number $_ ? sprintf('%03d', $_) : uc }
-    grep { defined }
-    map  { ref eq 'ARRAY' ? @$_ : $_ } @_
+sub coerce_regions (*@regions) {
+    return @regions\
+        .map( *.can('values') && *.values )\
+        .grep( *.defined )\
+        .map({ /^ <[0..9]> ** 1..2 $/ ?? .fmt('%03d') !! .uc })\
+        .map({ %alias_of{$_} || $_ });
 }
 
-use namespace::clean;
+has @!includes;
+has @!excludes;
 
-has _includes => (
-    is       => 'ro',
-    coerce   => sub { [ coerce_regions(shift) ] },
-    default  => sub { [] },
-    init_arg => 'include',
-);
+submethod BUILD (:$include, :$exclude) {
+    @!includes = coerce_regions($include);
+    @!excludes = coerce_regions($exclude);
+}
 
-has _excludes => (
-    is       => 'ro',
-    coerce   => sub { [ coerce_regions(shift) ] },
-    default  => sub { [] },
-    init_arg => 'exclude',
-);
-
-has _children => (
-    is      => 'lazy',
-    builder => sub {
-        my $self = shift;
-        my $build_children;
-
-        $build_children = sub { map {
-            $_, exists $children_of{$_}
-                     ? $build_children->(@{$children_of{$_}})
-                     : ()
-        } @_ };
-
-        my %excludes = map { $_ => 1 }
-                           $build_children->(@{$self->_excludes});
-
-        my %children = map  { $_ => 1 }
-                       grep { !exists $excludes{$_} }
-                            $build_children->(@{$self->_includes});
-
-        weaken $build_children;
-        return \%children;
-    },
-);
-
-has _parents => (
-    is      => 'lazy',
-    builder => sub {
-        my @regions = @{shift->_includes};
-        my ($build_parents, %count);
-
-        $build_parents = sub { map {
-             my $region = $_;
-             $region, $build_parents->(grep {
-                 any { $_ eq $region } @{$children_of{$_}}
-             } keys %children_of);
-        } @_ };
-
-        my %parents = map  { $_ => 1 }
-                      grep { ++$count{$_} == @regions }
-                           $build_parents->(@regions);
-
-        weaken $build_parents;
-        return \%parents;
-    },
-);
-
-has _countries => (
-    is      => 'lazy',
-    builder => sub { [
-        sort
-        grep { /^[A-Z]{2}$/ && !exists $noncountries{$_} }
-        keys %{shift->_children}
-    ] },
-);
-
-sub BUILDARGS {
-    my ($class, @args) = @_;
-
-    # the `include` key is optional for the first argument
-    my %args = @args % 2 ? (include => @args) : @args;
-
-    if (exists $args{region}) {
-        carp 'Argument "region" is deprecated; use "include" instead';
-        $args{include} = delete $args{region};
+method !children () {
+    my sub build_children (@regions) {
+        return @regions.map: {
+            $^region,
+            %children_of{$^region}:exists
+                ?? build_children(%children_of{$^region})
+                !! ()
+        };
     }
 
-    return \%args;
+    my $excludes = build_children(@!excludes).Set;
+    return build_children(@!includes).grep({ !$excludes{$_} }).Set;
 }
 
-sub contains {
-    my ($self, @regions) = @_;
-    return all { exists $self->_children->{$_} } coerce_regions(@regions);
+method !parents () {
+    my sub build_parents (@regions) {
+        return @regions.map: -> $region {
+            $region,
+            build_parents(%children_of.keys.grep: {
+                %children_of{$_}.any eq $region
+            })
+        };
+    };
+
+    my %count;
+    return build_parents(@!includes).grep({
+        ++%count{$_} == @!includes.elems
+    }).Set;
 }
 
-sub is_within {
-    my ($self, @regions) = @_;
-    return all { exists $self->_parents->{$_} } coerce_regions(@regions);
+method contains (*@regions) {
+    return ?self!children(){ coerce_regions(@regions).all };
 }
 
-sub countries {
-    my ($self) = @_;
-    return @{$self->_countries};
+method is_within (*@regions) {
+    return ?self!parents(){ coerce_regions(@regions).all };
 }
 
-1;
+method countries () {
+    return self!children().keys.grep({ /<[A..Z]>/ && !$noncountries{$_} }).sort;
+}
 
-__END__
+=begin pod
 
 =encoding UTF-8
 
@@ -317,3 +254,5 @@ L<code.shutterstock.com|http://code.shutterstock.com/>.
 
 This library is free software; you can redistribute it and/or modify it under
 the same terms as Perl itself.
+
+=end pod
