@@ -56,6 +56,9 @@ sub coerce_regions (*@regions) {
 
 has @!includes;
 has @!excludes;
+has @!countries;
+has $!children;
+has $!parents;
 
 submethod BUILD (:$include, :$exclude) {
     @!includes = coerce_regions($include);
@@ -63,45 +66,57 @@ submethod BUILD (:$include, :$exclude) {
 }
 
 method !children () {
-    my sub build_children (@regions) {
-        return @regions.map: {
-            $^region,
-            %children_of{$^region}:exists
-                ?? build_children(%children_of{$^region})
-                !! ()
-        };
-    }
+    $!children ||= do {
+        my sub build_children (@regions) {
+            @regions.map: {
+                $^region,
+                %children_of{$^region}:exists
+                    ?? build_children(%children_of{$^region})
+                    !! ()
+            }
+        }
 
-    my $excludes = build_children(@!excludes).Set;
-    return build_children(@!includes).grep({ !$excludes{$_} }).Set;
+        my $excludes = build_children(@!excludes).Set;
+        build_children(@!includes).grep({ !$excludes{$_} }).Set;
+    };
+
+    return $!children;
 }
 
 method !parents () {
-    my sub build_parents (@regions) {
-        return @regions.map: -> $region {
-            $region,
-            build_parents(%children_of.keys.grep: {
-                %children_of{$_}.any eq $region
-            })
-        };
+    $!parents ||= do {
+        my sub build_parents (@regions) {
+            @regions.map: -> $region {
+                $region,
+                build_parents(%children_of.keys.grep: {
+                    %children_of{$_}.any eq $region
+                })
+            }
+        }
+
+        my %count;
+        build_parents(@!includes).grep({
+            ++%count{$_} == @!includes.elems
+        }).Set;
     };
 
-    my %count;
-    return build_parents(@!includes).grep({
-        ++%count{$_} == @!includes.elems
-    }).Set;
+    return $!parents;
 }
 
 method contains (*@regions) {
-    return ?self!children(){ coerce_regions(@regions).all };
+    return ?self!children{ coerce_regions(@regions).all };
 }
 
 method is_within (*@regions) {
-    return ?self!parents(){ coerce_regions(@regions).all };
+    return ?self!parents{ coerce_regions(@regions).all };
 }
 
 method countries () {
-    return self!children().keys.grep({ /<[A..Z]>/ && !$noncountries{$_} }).sort;
+    @!countries ||= self!children.keys.grep({
+        /<[A..Z]>/ && !$noncountries{$_}
+    }).sort;
+
+    return @!countries.values;
 }
 
 =begin pod
