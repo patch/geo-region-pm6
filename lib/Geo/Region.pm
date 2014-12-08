@@ -2,9 +2,9 @@ class Geo::Region;
 
 has @!includes;
 has @!excludes;
-has @!countries;
 has $!children;
 has $!parents;
+has $!countries;
 
 submethod BUILD (:$include, :$exclude) {
     @!includes = coerce_regions($include);
@@ -66,7 +66,7 @@ sub coerce_regions (*@regions) {
 }
 
 method !children () {
-    $!children ||= do {
+    $!children //= do {
         my sub build_children (@regions) {
             @regions.map: {
                 $^region,
@@ -84,7 +84,7 @@ method !children () {
 }
 
 method !parents () {
-    $!parents ||= do {
+    $!parents //= do {
         my sub build_parents (@regions) {
             @regions.map: -> $region {
                 $region,
@@ -112,11 +112,11 @@ method is_within (*@regions) {
 }
 
 method countries () {
-    @!countries ||= self!children.keys.grep({
+    $!countries //= self!children.keys.grep({
         /<[A..Z]>/ && !$noncountries{$_}
     }).sort;
 
-    return @!countries.values;
+    return $!countries.values;
 }
 
 =begin pod
