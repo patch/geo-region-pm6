@@ -77,7 +77,7 @@ The `new` class method is used to construct a Geo::Region object along with the
     Geo::Region.new(include => Region::EuropeanUnion)
 
     # countries in Asia (142) plus Russia (RU)
-    Geo::Region.new(include => (Region::Asia, 'RU'))
+    Geo::Region.new(include => (Region::Asia, Country::Russia))
     ```
 
 - `exclude`

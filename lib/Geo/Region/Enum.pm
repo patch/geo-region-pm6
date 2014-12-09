@@ -36,7 +36,263 @@ enum Region is export (
 );
 
 enum Country is export (
-    # TODO
+    Afghanistan                      => 'AF',
+    ÅlandIslands                     => 'AX',
+    Albania                          => 'AL',
+    Algeria                          => 'DZ',
+    AmericanSamoa                    => 'AS',
+    Andorra                          => 'AD',
+    Angola                           => 'AO',
+    Anguilla                         => 'AI',
+    Antarctica                       => 'AQ',
+    AntiguaBarbuda                   => 'AG',
+    Argentina                        => 'AR',
+    Armenia                          => 'AM',
+    Aruba                            => 'AW',
+    AscensionIsland                  => 'AC',
+    Australia                        => 'AU',
+    Austria                          => 'AT',
+    Azerbaijan                       => 'AZ',
+    Bahamas                          => 'BS',
+    Bahrain                          => 'BH',
+    Bangladesh                       => 'BD',
+    Barbados                         => 'BB',
+    Belarus                          => 'BY',
+    Belgium                          => 'BE',
+    Belize                           => 'BZ',
+    Benin                            => 'BJ',
+    Bermuda                          => 'BM',
+    Bhutan                           => 'BT',
+    Bolivia                          => 'BO',
+    Bosnia                           => 'BA',
+    Botswana                         => 'BW',
+    BouvetIsland                     => 'BV',
+    Brazil                           => 'BR',
+    BritishIndianOceanTerritory      => 'IO',
+    BritishVirginIslands             => 'VG',
+    Brunei                           => 'BN',
+    Bulgaria                         => 'BG',
+    BurkinaFaso                      => 'BF',
+    Burundi                          => 'BI',
+    Cambodia                         => 'KH',
+    Cameroon                         => 'CM',
+    Canada                           => 'CA',
+    CanaryIslands                    => 'IC',
+    CapeVerde                        => 'CV',
+    CaribbeanNetherlands             => 'BQ',
+    CaymanIslands                    => 'KY',
+    CentralAfricanRepublic           => 'CF',
+    CeutaMelilla                     => 'EA',
+    Chad                             => 'TD',
+    Chile                            => 'CL',
+    China                            => 'CN',
+    ChristmasIsland                  => 'CX',
+    ClippertonIsland                 => 'CP',
+    CocosIslands                     => 'CC',
+    Colombia                         => 'CO',
+    Comoros                          => 'KM',
+    CongoDRC                         => 'CD',
+    CongoRepublic                    => 'CG',
+    CookIslands                      => 'CK',
+    CostaRica                        => 'CR',
+    Croatia                          => 'HR',
+    Cuba                             => 'CU',
+    Curaçao                          => 'CW',
+    Cyprus                           => 'CY',
+    CzechRepublic                    => 'CZ',
+    Denmark                          => 'DK',
+    DiegoGarcia                      => 'DG',
+    Djibouti                         => 'DJ',
+    Dominica                         => 'DM',
+    DominicanRepublic                => 'DO',
+    EastTimor                        => 'TL',
+    Ecuador                          => 'EC',
+    Egypt                            => 'EG',
+    ElSalvador                       => 'SV',
+    EquatorialGuinea                 => 'GQ',
+    Eritrea                          => 'ER',
+    Estonia                          => 'EE',
+    Ethiopia                         => 'ET',
+    FalklandIslands                  => 'FK',
+    FaroeIslands                     => 'FO',
+    Fiji                             => 'FJ',
+    Finland                          => 'FI',
+    France                           => 'FR',
+    FrenchGuiana                     => 'GF',
+    FrenchPolynesia                  => 'PF',
+    FrenchSouthernTerritories        => 'TF',
+    Gabon                            => 'GA',
+    Gambia                           => 'GM',
+    Georgia                          => 'GE',
+    Germany                          => 'DE',
+    Ghana                            => 'GH',
+    Gibraltar                        => 'GI',
+    Greece                           => 'GR',
+    Greenland                        => 'GL',
+    Grenada                          => 'GD',
+    Guadeloupe                       => 'GP',
+    Guam                             => 'GU',
+    Guatemala                        => 'GT',
+    Guernsey                         => 'GG',
+    Guinea                           => 'GN',
+    GuineaBissau                     => 'GW',
+    Guyana                           => 'GY',
+    Haiti                            => 'HT',
+    HeardMcDonaldIslands             => 'HM',
+    Honduras                         => 'HN',
+    HongKong                         => 'HK',
+    Hungary                          => 'HU',
+    Iceland                          => 'IS',
+    India                            => 'IN',
+    Indonesia                        => 'ID',
+    Iran                             => 'IR',
+    Iraq                             => 'IQ',
+    Ireland                          => 'IE',
+    IsleofMan                        => 'IM',
+    Israel                           => 'IL',
+    Italy                            => 'IT',
+    IvoryCoast                       => 'CI',
+    Jamaica                          => 'JM',
+    Japan                            => 'JP',
+    Jersey                           => 'JE',
+    Jordan                           => 'JO',
+    Kazakhstan                       => 'KZ',
+    Kenya                            => 'KE',
+    Kiribati                         => 'KI',
+    Kosovo                           => 'XK',
+    Kuwait                           => 'KW',
+    Kyrgyzstan                       => 'KG',
+    Laos                             => 'LA',
+    Latvia                           => 'LV',
+    Lebanon                          => 'LB',
+    Lesotho                          => 'LS',
+    Liberia                          => 'LR',
+    Libya                            => 'LY',
+    Liechtenstein                    => 'LI',
+    Lithuania                        => 'LT',
+    Luxembourg                       => 'LU',
+    Macau                            => 'MO',
+    Macedonia                        => 'MK',
+    Madagascar                       => 'MG',
+    Malawi                           => 'MW',
+    Malaysia                         => 'MY',
+    Maldives                         => 'MV',
+    Mali                             => 'ML',
+    Malta                            => 'MT',
+    MarshallIslands                  => 'MH',
+    Martinique                       => 'MQ',
+    Mauritania                       => 'MR',
+    Mauritius                        => 'MU',
+    Mayotte                          => 'YT',
+    Mexico                           => 'MX',
+    Micronesia                       => 'FM',
+    Moldova                          => 'MD',
+    Monaco                           => 'MC',
+    Mongolia                         => 'MN',
+    Montenegro                       => 'ME',
+    Montserrat                       => 'MS',
+    Morocco                          => 'MA',
+    Mozambique                       => 'MZ',
+    Myanmar                          => 'MM',
+    Namibia                          => 'NA',
+    Nauru                            => 'NR',
+    Nepal                            => 'NP',
+    Netherlands                      => 'NL',
+    NetherlandsAntilles              => 'AN',
+    NewCaledonia                     => 'NC',
+    NewZealand                       => 'NZ',
+    Nicaragua                        => 'NI',
+    Niger                            => 'NE',
+    Nigeria                          => 'NG',
+    Niue                             => 'NU',
+    NorfolkIsland                    => 'NF',
+    NorthernMarianaIslands           => 'MP',
+    NorthKorea                       => 'KP',
+    Norway                           => 'NO',
+    Oman                             => 'OM',
+    Pakistan                         => 'PK',
+    Palau                            => 'PW',
+    Palestine                        => 'PS',
+    Panama                           => 'PA',
+    PapuaNewGuinea                   => 'PG',
+    Paraguay                         => 'PY',
+    Peru                             => 'PE',
+    Philippines                      => 'PH',
+    PitcairnIslands                  => 'PN',
+    Poland                           => 'PL',
+    Portugal                         => 'PT',
+    PuertoRico                       => 'PR',
+    Qatar                            => 'QA',
+    Réunion                          => 'RE',
+    Romania                          => 'RO',
+    Russia                           => 'RU',
+    Rwanda                           => 'RW',
+    Samoa                            => 'WS',
+    SanMarino                        => 'SM',
+    SãoToméPríncipe                  => 'ST',
+    SaudiArabia                      => 'SA',
+    Senegal                          => 'SN',
+    Serbia                           => 'RS',
+    Seychelles                       => 'SC',
+    SierraLeone                      => 'SL',
+    Singapore                        => 'SG',
+    SintMaarten                      => 'SX',
+    Slovakia                         => 'SK',
+    Slovenia                         => 'SI',
+    SolomonIslands                   => 'SB',
+    Somalia                          => 'SO',
+    SouthAfrica                      => 'ZA',
+    SouthGeorgiaSouthSandwichIslands => 'GS',
+    SouthKorea                       => 'KR',
+    SouthSudan                       => 'SS',
+    Spain                            => 'ES',
+    SriLanka                         => 'LK',
+    StBarthélemy                     => 'BL',
+    StHelena                         => 'SH',
+    StKittsNevis                     => 'KN',
+    StLucia                          => 'LC',
+    StMartin                         => 'MF',
+    StPierreMiquelon                 => 'PM',
+    StVincentGrenadines              => 'VC',
+    Sudan                            => 'SD',
+    Suriname                         => 'SR',
+    SvalbardJanMayen                 => 'SJ',
+    Swaziland                        => 'SZ',
+    Sweden                           => 'SE',
+    Switzerland                      => 'CH',
+    Syria                            => 'SY',
+    Taiwan                           => 'TW',
+    Tajikistan                       => 'TJ',
+    Tanzania                         => 'TZ',
+    Thailand                         => 'TH',
+    Togo                             => 'TG',
+    Tokelau                          => 'TK',
+    Tonga                            => 'TO',
+    TrinidadTobago                   => 'TT',
+    TristandaCunha                   => 'TA',
+    Tunisia                          => 'TN',
+    Turkey                           => 'TR',
+    Turkmenistan                     => 'TM',
+    TurksCaicosIslands               => 'TC',
+    Tuvalu                           => 'TV',
+    Uganda                           => 'UG',
+    Ukraine                          => 'UA',
+    UnitedArabEmirates               => 'AE',
+    UnitedKingdom                    => 'GB',
+    UnitedStates                     => 'US',
+    Uruguay                          => 'UY',
+    USOutlyingIslands                => 'UM',
+    USVirginIslands                  => 'VI',
+    Uzbekistan                       => 'UZ',
+    Vanuatu                          => 'VU',
+    VaticanCity                      => 'VA',
+    Venezuela                        => 'VE',
+    Vietnam                          => 'VN',
+    WallisFutuna                     => 'WF',
+    WesternSahara                    => 'EH',
+    Yemen                            => 'YE',
+    Zambia                           => 'ZM',
+    Zimbabwe                         => 'ZW',
 );
 
 =begin pod
@@ -56,6 +312,7 @@ v26.
 
     Region::LatinAmerica   # '419'
     Region::EuropeanUnion  # 'EU'
+    Country::Japan         # 'JP'
 
 =head1 DESCRIPTION
 
@@ -105,7 +362,263 @@ C<Region>
 =begin item
 C<Country>
 
-TODO
+    Afghanistan                       AF
+    ÅlandIslands                      AX
+    Albania                           AL
+    Algeria                           DZ
+    AmericanSamoa                     AS
+    Andorra                           AD
+    Angola                            AO
+    Anguilla                          AI
+    Antarctica                        AQ
+    AntiguaBarbuda                    AG
+    Argentina                         AR
+    Armenia                           AM
+    Aruba                             AW
+    AscensionIsland                   AC
+    Australia                         AU
+    Austria                           AT
+    Azerbaijan                        AZ
+    Bahamas                           BS
+    Bahrain                           BH
+    Bangladesh                        BD
+    Barbados                          BB
+    Belarus                           BY
+    Belgium                           BE
+    Belize                            BZ
+    Benin                             BJ
+    Bermuda                           BM
+    Bhutan                            BT
+    Bolivia                           BO
+    Bosnia                            BA
+    Botswana                          BW
+    BouvetIsland                      BV
+    Brazil                            BR
+    BritishIndianOceanTerritory       IO
+    BritishVirginIslands              VG
+    Brunei                            BN
+    Bulgaria                          BG
+    BurkinaFaso                       BF
+    Burundi                           BI
+    Cambodia                          KH
+    Cameroon                          CM
+    Canada                            CA
+    CanaryIslands                     IC
+    CapeVerde                         CV
+    CaribbeanNetherlands              BQ
+    CaymanIslands                     KY
+    CentralAfricanRepublic            CF
+    CeutaMelilla                      EA
+    Chad                              TD
+    Chile                             CL
+    China                             CN
+    ChristmasIsland                   CX
+    ClippertonIsland                  CP
+    CocosIslands                      CC
+    Colombia                          CO
+    Comoros                           KM
+    CongoDRC                          CD
+    CongoRepublic                     CG
+    CookIslands                       CK
+    CostaRica                         CR
+    Croatia                           HR
+    Cuba                              CU
+    Curaçao                           CW
+    Cyprus                            CY
+    CzechRepublic                     CZ
+    Denmark                           DK
+    DiegoGarcia                       DG
+    Djibouti                          DJ
+    Dominica                          DM
+    DominicanRepublic                 DO
+    EastTimor                         TL
+    Ecuador                           EC
+    Egypt                             EG
+    ElSalvador                        SV
+    EquatorialGuinea                  GQ
+    Eritrea                           ER
+    Estonia                           EE
+    Ethiopia                          ET
+    FalklandIslands                   FK
+    FaroeIslands                      FO
+    Fiji                              FJ
+    Finland                           FI
+    France                            FR
+    FrenchGuiana                      GF
+    FrenchPolynesia                   PF
+    FrenchSouthernTerritories         TF
+    Gabon                             GA
+    Gambia                            GM
+    Georgia                           GE
+    Germany                           DE
+    Ghana                             GH
+    Gibraltar                         GI
+    Greece                            GR
+    Greenland                         GL
+    Grenada                           GD
+    Guadeloupe                        GP
+    Guam                              GU
+    Guatemala                         GT
+    Guernsey                          GG
+    Guinea                            GN
+    GuineaBissau                      GW
+    Guyana                            GY
+    Haiti                             HT
+    HeardMcDonaldIslands              HM
+    Honduras                          HN
+    HongKong                          HK
+    Hungary                           HU
+    Iceland                           IS
+    India                             IN
+    Indonesia                         ID
+    Iran                              IR
+    Iraq                              IQ
+    Ireland                           IE
+    IsleofMan                         IM
+    Israel                            IL
+    Italy                             IT
+    IvoryCoast                        CI
+    Jamaica                           JM
+    Japan                             JP
+    Jersey                            JE
+    Jordan                            JO
+    Kazakhstan                        KZ
+    Kenya                             KE
+    Kiribati                          KI
+    Kosovo                            XK
+    Kuwait                            KW
+    Kyrgyzstan                        KG
+    Laos                              LA
+    Latvia                            LV
+    Lebanon                           LB
+    Lesotho                           LS
+    Liberia                           LR
+    Libya                             LY
+    Liechtenstein                     LI
+    Lithuania                         LT
+    Luxembourg                        LU
+    Macau                             MO
+    Macedonia                         MK
+    Madagascar                        MG
+    Malawi                            MW
+    Malaysia                          MY
+    Maldives                          MV
+    Mali                              ML
+    Malta                             MT
+    MarshallIslands                   MH
+    Martinique                        MQ
+    Mauritania                        MR
+    Mauritius                         MU
+    Mayotte                           YT
+    Mexico                            MX
+    Micronesia                        FM
+    Moldova                           MD
+    Monaco                            MC
+    Mongolia                          MN
+    Montenegro                        ME
+    Montserrat                        MS
+    Morocco                           MA
+    Mozambique                        MZ
+    Myanmar                           MM
+    Namibia                           NA
+    Nauru                             NR
+    Nepal                             NP
+    Netherlands                       NL
+    NetherlandsAntilles               AN
+    NewCaledonia                      NC
+    NewZealand                        NZ
+    Nicaragua                         NI
+    Niger                             NE
+    Nigeria                           NG
+    Niue                              NU
+    NorfolkIsland                     NF
+    NorthernMarianaIslands            MP
+    NorthKorea                        KP
+    Norway                            NO
+    Oman                              OM
+    Pakistan                          PK
+    Palau                             PW
+    Palestine                         PS
+    Panama                            PA
+    PapuaNewGuinea                    PG
+    Paraguay                          PY
+    Peru                              PE
+    Philippines                       PH
+    PitcairnIslands                   PN
+    Poland                            PL
+    Portugal                          PT
+    PuertoRico                        PR
+    Qatar                             QA
+    Réunion                           RE
+    Romania                           RO
+    Russia                            RU
+    Rwanda                            RW
+    Samoa                             WS
+    SanMarino                         SM
+    SãoToméPríncipe                   ST
+    SaudiArabia                       SA
+    Senegal                           SN
+    Serbia                            RS
+    Seychelles                        SC
+    SierraLeone                       SL
+    Singapore                         SG
+    SintMaarten                       SX
+    Slovakia                          SK
+    Slovenia                          SI
+    SolomonIslands                    SB
+    Somalia                           SO
+    SouthAfrica                       ZA
+    SouthGeorgiaSouthSandwichIslands  GS
+    SouthKorea                        KR
+    SouthSudan                        SS
+    Spain                             ES
+    SriLanka                          LK
+    StBarthélemy                      BL
+    StHelena                          SH
+    StKittsNevis                      KN
+    StLucia                           LC
+    StMartin                          MF
+    StPierreMiquelon                  PM
+    StVincentGrenadines               VC
+    Sudan                             SD
+    Suriname                          SR
+    SvalbardJanMayen                  SJ
+    Swaziland                         SZ
+    Sweden                            SE
+    Switzerland                       CH
+    Syria                             SY
+    Taiwan                            TW
+    Tajikistan                        TJ
+    Tanzania                          TZ
+    Thailand                          TH
+    Togo                              TG
+    Tokelau                           TK
+    Tonga                             TO
+    TrinidadTobago                    TT
+    TristandaCunha                    TA
+    Tunisia                           TN
+    Turkey                            TR
+    Turkmenistan                      TM
+    TurksCaicosIslands                TC
+    Tuvalu                            TV
+    Uganda                            UG
+    Ukraine                           UA
+    UnitedArabEmirates                AE
+    UnitedKingdom                     GB
+    UnitedStates                      US
+    Uruguay                           UY
+    USOutlyingIslands                 UM
+    USVirginIslands                   VI
+    Uzbekistan                        UZ
+    Vanuatu                           VU
+    VaticanCity                       VA
+    Venezuela                         VE
+    Vietnam                           VN
+    WallisFutuna                      WF
+    WesternSahara                     EH
+    Yemen                             YE
+    Zambia                            ZM
+    Zimbabwe                          ZW
 
 =end item
 

@@ -5,8 +5,8 @@
     "description" : "Geographical regions and groupings using UN M.49 and CLDR data",
     "depends"     : [],
     "provides"    : {
-        "Geo::Region"           : "lib/Geo/Region.pm",
-        "Geo::Region::Constant" : "lib/Geo/Region/Constant.pm"
+        "Geo::Region"       : "lib/Geo/Region.pm",
+        "Geo::Region::Enum" : "lib/Geo/Region/Enum.pm"
     },
     "source-url"  : "git://github.com/patch/geo-region-pm6.git"
 }

@@ -198,7 +198,7 @@ codes to be included in the resulting custom region.
     Geo::Region.new(include => Region::EuropeanUnion)
 
     # countries in Asia (142) plus Russia (RU)
-    Geo::Region.new(include => (Region::Asia, 'RU'))
+    Geo::Region.new(include => (Region::Asia, Country::Russia))
 
 =end item
 
