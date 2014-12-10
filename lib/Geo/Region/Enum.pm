@@ -49,7 +49,6 @@ enum Country is export (
     Argentina                        => 'AR',
     Armenia                          => 'AM',
     Aruba                            => 'AW',
-    AscensionIsland                  => 'AC',
     Australia                        => 'AU',
     Austria                          => 'AT',
     Azerbaijan                       => 'AZ',
@@ -77,17 +76,14 @@ enum Country is export (
     Cambodia                         => 'KH',
     Cameroon                         => 'CM',
     Canada                           => 'CA',
-    CanaryIslands                    => 'IC',
     CapeVerde                        => 'CV',
     CaribbeanNetherlands             => 'BQ',
     CaymanIslands                    => 'KY',
     CentralAfricanRepublic           => 'CF',
-    CeutaMelilla                     => 'EA',
     Chad                             => 'TD',
     Chile                            => 'CL',
     China                            => 'CN',
     ChristmasIsland                  => 'CX',
-    ClippertonIsland                 => 'CP',
     CocosIslands                     => 'CC',
     Colombia                         => 'CO',
     Comoros                          => 'KM',
@@ -101,7 +97,6 @@ enum Country is export (
     Cyprus                           => 'CY',
     CzechRepublic                    => 'CZ',
     Denmark                          => 'DK',
-    DiegoGarcia                      => 'DG',
     Djibouti                         => 'DJ',
     Dominica                         => 'DM',
     DominicanRepublic                => 'DO',
@@ -159,7 +154,6 @@ enum Country is export (
     Kazakhstan                       => 'KZ',
     Kenya                            => 'KE',
     Kiribati                         => 'KI',
-    Kosovo                           => 'XK',
     Kuwait                           => 'KW',
     Kyrgyzstan                       => 'KG',
     Laos                             => 'LA',
@@ -198,7 +192,6 @@ enum Country is export (
     Nauru                            => 'NR',
     Nepal                            => 'NP',
     Netherlands                      => 'NL',
-    NetherlandsAntilles              => 'AN',
     NewCaledonia                     => 'NC',
     NewZealand                       => 'NZ',
     Nicaragua                        => 'NI',
@@ -269,7 +262,6 @@ enum Country is export (
     Tokelau                          => 'TK',
     Tonga                            => 'TO',
     TrinidadTobago                   => 'TT',
-    TristandaCunha                   => 'TA',
     Tunisia                          => 'TN',
     Turkey                           => 'TR',
     Turkmenistan                     => 'TM',
@@ -316,13 +308,15 @@ v26.
 
 =head1 DESCRIPTION
 
-Exportable enumerations for UN M.49 region codes, including CLDR extensions,
-designed for use with L<Geo::Region>.
+Exportable constants for region and country codes, designed for use with
+L<Geo::Region> but available for standalone use as well.
 
 =head2 Enumerations
 
 =begin item
 C<Region>
+
+The UN M.49 region codes plus CLDR extensions B<EU> and B<QO>.
 
     World                  001
     • Africa               002
@@ -362,6 +356,8 @@ C<Region>
 =begin item
 C<Country>
 
+The 249 officially assigned ISO 3166-1 alpha-2 codes.
+
     Afghanistan                       AF
     ÅlandIslands                      AX
     Albania                           AL
@@ -375,7 +371,6 @@ C<Country>
     Argentina                         AR
     Armenia                           AM
     Aruba                             AW
-    AscensionIsland                   AC
     Australia                         AU
     Austria                           AT
     Azerbaijan                        AZ
@@ -403,17 +398,14 @@ C<Country>
     Cambodia                          KH
     Cameroon                          CM
     Canada                            CA
-    CanaryIslands                     IC
     CapeVerde                         CV
     CaribbeanNetherlands              BQ
     CaymanIslands                     KY
     CentralAfricanRepublic            CF
-    CeutaMelilla                      EA
     Chad                              TD
     Chile                             CL
     China                             CN
     ChristmasIsland                   CX
-    ClippertonIsland                  CP
     CocosIslands                      CC
     Colombia                          CO
     Comoros                           KM
@@ -427,7 +419,6 @@ C<Country>
     Cyprus                            CY
     CzechRepublic                     CZ
     Denmark                           DK
-    DiegoGarcia                       DG
     Djibouti                          DJ
     Dominica                          DM
     DominicanRepublic                 DO
@@ -485,7 +476,6 @@ C<Country>
     Kazakhstan                        KZ
     Kenya                             KE
     Kiribati                          KI
-    Kosovo                            XK
     Kuwait                            KW
     Kyrgyzstan                        KG
     Laos                              LA
@@ -524,7 +514,6 @@ C<Country>
     Nauru                             NR
     Nepal                             NP
     Netherlands                       NL
-    NetherlandsAntilles               AN
     NewCaledonia                      NC
     NewZealand                        NZ
     Nicaragua                         NI
@@ -595,7 +584,6 @@ C<Country>
     Tokelau                           TK
     Tonga                             TO
     TrinidadTobago                    TT
-    TristandaCunha                    TA
     Tunisia                           TN
     Turkey                            TR
     Turkmenistan                      TM
