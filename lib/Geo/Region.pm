@@ -98,7 +98,7 @@ method !parents () {
 
         my %count;
         build_parents(@!includes).grep({
-            ++%count{$_} == @!includes.elems
+            ++%count{$_} == @!includes
         }).Set;
     };
 
