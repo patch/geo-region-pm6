@@ -6,9 +6,9 @@ has $!children;
 has $!parents;
 has $!countries;
 
-submethod BUILD (:$include, :$exclude) {
-    @!includes = coerce_regions($include);
-    @!excludes = coerce_regions($exclude);
+submethod BUILD (:$include = (), :$exclude = ()) {
+    @!includes = $include.map: { coerce_region($_) };
+    @!excludes = $exclude.map: { coerce_region($_) };
 }
 
 my %children_of = (
@@ -57,12 +57,14 @@ my $noncountries = set <
 # deprecated aliases
 my %alias_of = :QU<EU>, :UK<GB>;
 
-sub coerce_regions (*@regions) {
-    return @regions\
-        .map( *.can('values') && *.values )\
-        .grep( *.defined )\
-        .map({ /^ <[0..9]> ** 1..2 $/ ?? .fmt('%03d') !! .uc })\
-        .map({ %alias_of{$_} || $_ });
+sub coerce_region ($region) {
+    if $region ~~ /^ <[0..9]>+ $/ {
+        return $region.fmt('%03d');
+    }
+
+    given $region.uc -> $uc {
+        return %alias_of{$uc} // $uc;
+    }
 }
 
 method !children () {
@@ -103,12 +105,12 @@ method !parents () {
     return $!parents;
 }
 
-method contains (*@regions) {
-    return ?self!children{ coerce_regions(@regions).all };
+method contains ($region) {
+    return self!children{ coerce_region($region) };
 }
 
-method is-within (*@regions) {
-    return ?self!parents{ coerce_regions(@regions).all };
+method is-within ($region) {
+    return self!parents{ coerce_region($region) };
 }
 
 method countries () {

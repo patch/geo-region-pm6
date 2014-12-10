@@ -30,8 +30,8 @@ subtest {
     ok $r.contains('011'), 'region contains subsubregion string';
     ok $r.contains('BF'),  'region contains country';
     ok $r.contains('bf'),  'region contains lowercase country';
-    ok $r.contains( 1, 2, 11, 'BF' ), 'multiple containment args';
-    ok $r.contains([1, 2, 11, 'BF']), 'arrayref containment arg';
+    ok $r.contains(all <1 2 11 BF>), 'region contains junctive all';
+    ok $r.contains(any <1 ZZ>),      'region contains junctive any';
 
     is        $r.countries.elems, 256,              'expected # of countries';
     cmp_ok    $r.countries.join, '~~', /^<:Lu>+$/,  'countries are uppercase';
@@ -61,8 +61,8 @@ subtest {
     ok $r.is-within(1),    'within World (001) region';
     ok $r.is-within(3),    'within North America (003) grouping';
     ok $r.is-within(419),  'within Latin America (419) grouping';
-    ok $r.is-within( 1, 3, 13, 19, 419, 'MX' ), 'multiple within args';
-    ok $r.is-within([1, 3, 13, 19, 419, 'MX']), 'arrayref within arg';
+    ok $r.is-within(all <1 3 13 19 419 MX>), 'within junctive all';
+    ok $r.is-within(any <MX US>),            'within junctive any';
     is_deeply $r.countries, <MX>.list, 'only one country in a country';
 }, 'Mexico (MX) country';
 
@@ -70,11 +70,11 @@ subtest {
     plan 6;
     my $r = Geo::Region.new(include => [143, 'RU']);
 
-    ok  $r.contains(143, 'RU'), 'contains both included regions';
-    ok  $r.contains('KZ'),      'contains regions within any included';
-    ok  $r.is-within(1),        'within regions shared by all included';
-    nok $r.is-within(143),      'not within either included region';
-    nok $r.is-within('RU'),     'not within either included region';
+    ok  $r.contains(all <143 RU>), 'contains both included regions';
+    ok  $r.contains('KZ'),         'contains regions within any included';
+    ok  $r.is-within(1),           'within regions shared by all included';
+    nok $r.is-within(143),         'not within either included region';
+    nok $r.is-within('RU'),        'not within either included region';
 
     is_deeply(
         $r.countries,
