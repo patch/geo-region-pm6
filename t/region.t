@@ -67,14 +67,15 @@ subtest {
 }, 'Mexico (MX) country';
 
 subtest {
-    plan 6;
+    plan 7;
     my $r = Geo::Region.new(include => [143, 'RU']);
 
-    ok  $r.contains(all <143 RU>), 'contains both included regions';
-    ok  $r.contains('KZ'),         'contains regions within any included';
-    ok  $r.is-within(1),           'within regions shared by all included';
-    nok $r.is-within(143),         'not within either included region';
-    nok $r.is-within('RU'),        'not within either included region';
+    ok  $r.contains('143'), 'contains included region';
+    ok  $r.contains('RU'),  'contains included country';
+    ok  $r.contains('KZ'),  'contains country within any included region';
+    ok  $r.is-within(1),    'within regions shared by all included';
+    nok $r.is-within(143),  'not within either included region';
+    nok $r.is-within('RU'), 'not within either included region';
 
     is_deeply(
         $r.countries,

@@ -58,13 +58,11 @@ my $noncountries = set <
 my %alias_of = :QU<EU>, :UK<GB>;
 
 sub coerce_region ($region) {
-    if $region ~~ /^ <[0..9]>+ $/ {
-        return $region.fmt('%03d');
-    }
+    return $region.fmt('%03d')
+        if $region ~~ /^ <[0..9]>+ $/;
 
-    given $region.uc -> $uc {
-        return %alias_of{$uc} // $uc;
-    }
+    return %alias_of{$region.uc}
+        // $region.uc;
 }
 
 method !children () {
