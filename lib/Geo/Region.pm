@@ -101,11 +101,11 @@ method !parents () {
 }
 
 method contains ($region) {
-    return self!children{ coerce_region($region) };
+    return self!children ∋ coerce_region($region);
 }
 
 method is-within ($region) {
-    return self!parents{ coerce_region($region) };
+    return self!parents ∋ coerce_region($region);
 }
 
 method countries () {
