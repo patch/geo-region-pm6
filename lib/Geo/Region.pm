@@ -85,15 +85,15 @@ method !children () {
 method !parents () {
     $!parents //= do {
         my sub build_parents (@regions) {
-            @regions.map: -> $region {
-                $region,
-                build_parents(%children_of.grep( *.value ∋ $region )».key)
+            @regions.map: {
+                $^region,
+                build_parents(%children_of.grep( *.value ∋ $^region )».key)
             }
         }
 
         my %count;
         set build_parents(@!includes).grep: {
-            ++%count{$_} == @!includes
+            ++%count{$^parent} == @!includes
         };
     };
 
@@ -110,7 +110,7 @@ method is-within ($region) {
 
 method countries () {
     $!countries //= self!children.keys.grep({
-        /<[A..Z]>/ && !$noncountries{$_}
+        /<[A..Z]>/ && $_ ∉ $noncountries
     }).sort;
 
     return $!countries.values;
