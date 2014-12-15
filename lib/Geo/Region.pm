@@ -76,8 +76,7 @@ method !children () {
             }
         }
 
-        my $excludes = set build_children(@!excludes);
-        set build_children(@!includes).grep: { !$excludes{$_} };
+        build_children(@!includes) (-) build_children(@!excludes);
     };
 
     return $!children;
@@ -88,7 +87,7 @@ method !parents () {
         my sub build_parents (@regions) {
             @regions.map: -> $region {
                 $region,
-                build_parents(%children_of.grep( *.value{$region} )».key)
+                build_parents(%children_of.grep( *.value ∋ $region )».key)
             }
         }
 
