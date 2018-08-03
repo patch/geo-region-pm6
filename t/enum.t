@@ -1,3 +1,5 @@
+use lib 'lib';
+
 use Test;
 use Geo::Region::Enum;
 

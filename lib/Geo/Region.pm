@@ -13,46 +13,43 @@ submethod BUILD (:$include = (), :$exclude = ()) {
 
 my %children_of = (
     # regions of subregions
-    '001' => set(<002 009 019 142 150>),
-    '002' => set(<011 014 015 017 018>),
-    '003' => set(<013 021 029>),
-    '009' => set(<053 054 057 061 QO>),
-    '019' => set(<003 005 013 021 029 419>),
-    '142' => set(<030 034 035 143 145>),
-    '150' => set(<039 151 154 155 EU>),
-    '419' => set(<005 013 029>),
+    '001' => set('002', '009', '019', '142', '150'),
+    '002' => set('011', '014', '015', '017', '018'),
+    '003' => set('013', '021', '029'),
+    '009' => set('053', '054', '057', '061', 'QO'),
+    '019' => set('003', '005', '013', '021', '029', '419'),
+    '142' => set('030', '034', '035', '143', '145'),
+    '150' => set('039', '151', '154', '155', 'EU'),
+    '419' => set('005', '013', '029'),
     # regions of countries and territories
-    '005' => set(<AR BO BR CL CO EC FK GF GY PE PY SR UY VE>),
-    '011' => set(<BF BJ CI CV GH GM GN GW LR ML MR NE NG SH SL SN TG>),
-    '013' => set(<BZ CR GT HN MX NI PA SV>),
-    '014' => set(<BI DJ ER ET KE KM MG MU MW MZ RE RW SC SO TZ UG YT ZM ZW>),
-    '015' => set(<DZ EA EG EH IC LY MA SD SS TN>),
-    '017' => set(<AO CD CF CG CM GA GQ ST TD ZR>),
-    '018' => set(<BW LS NA SZ ZA>),
-    '021' => set(<BM CA GL PM US>),
-    '029' => set(<AG AI AN AW BB BL BQ BS CU CW DM DO GD GP HT JM KN KY LC MF MQ MS PR SX TC TT VC VG VI>),
-    '030' => set(<CN HK JP KP KR MN MO TW>),
-    '034' => set(<AF BD BT IN IR LK MV NP PK>),
-    '035' => set(<BN BU ID KH LA MM MY PH SG TH TL TP VN>),
-    '039' => set(<AD AL BA CS ES GI GR HR IT ME MK MT PT RS SI SM VA XK YU>),
-    '053' => set(<AU NF NZ>),
-    '054' => set(<FJ NC PG SB VU>),
-    '057' => set(<FM GU KI MH MP NR PW>),
-    '061' => set(<AS CK NU PF PN TK TO TV WF WS>),
-    '143' => set(<KG KZ TJ TM UZ>),
-    '145' => set(<AE AM AZ BH CY GE IL IQ JO KW LB NT OM PS QA SA SY TR YD YE>),
-    '151' => set(<BG BY CZ HU MD PL RO RU SK SU UA>),
-    '154' => set(<AX DK EE FI FO GB GG IE IM IS JE LT LV NO SE SJ>),
-    '155' => set(<AT BE CH DD DE FR FX LI LU MC NL>),
-    'EU'  => set(<AT BE BG CY CZ DE DK EE ES FI FR GB GR HR HU IE IT LT LU LV MT NL PL PT RO SE SI SK>),
-    'QO'  => set(<AC AQ BV CC CP CX DG GS HM IO TA TF UM>),
+    '005' => set('AR', 'BO', 'BR', 'CL', 'CO', 'EC', 'FK', 'GF', 'GY', 'PE', 'PY', 'SR', 'UY', 'VE'),
+    '011' => set('BF', 'BJ', 'CI', 'CV', 'GH', 'GM', 'GN', 'GW', 'LR', 'ML', 'MR', 'NE', 'NG', 'SH', 'SL', 'SN', 'TG'),
+    '013' => set('BZ', 'CR', 'GT', 'HN', 'MX', 'NI', 'PA', 'SV'),
+    '014' => set('BI', 'DJ', 'ER', 'ET', 'KE', 'KM', 'MG', 'MU', 'MW', 'MZ', 'RE', 'RW', 'SC', 'SO', 'TZ', 'UG', 'YT', 'ZM', 'ZW'),
+    '015' => set('DZ', 'EA', 'EG', 'EH', 'IC', 'LY', 'MA', 'SD', 'SS', 'TN'),
+    '017' => set('AO', 'CD', 'CF', 'CG', 'CM', 'GA', 'GQ', 'ST', 'TD', 'ZR'),
+    '018' => set('BW', 'LS', 'NA', 'SZ', 'ZA'),
+    '021' => set('BM', 'CA', 'GL', 'PM', 'US'),
+    '029' => set('AG', 'AI', 'AN', 'AW', 'BB', 'BL', 'BQ', 'BS', 'CU', 'CW', 'DM', 'DO', 'GD', 'GP', 'HT', 'JM', 'KN', 'KY', 'LC', 'MF', 'MQ', 'MS', 'PR', 'SX', 'TC', 'TT', 'VC', 'VG', 'VI'),
+    '030' => set('CN', 'HK', 'JP', 'KP', 'KR', 'MN', 'MO', 'TW'),
+    '034' => set('AF', 'BD', 'BT', 'IN', 'IR', 'LK', 'MV', 'NP', 'PK'),
+    '035' => set('BN', 'BU', 'ID', 'KH', 'LA', 'MM', 'MY', 'PH', 'SG', 'TH', 'TL', 'TP', 'VN'),
+    '039' => set('AD', 'AL', 'BA', 'CS', 'ES', 'GI', 'GR', 'HR', 'IT', 'ME', 'MK', 'MT', 'PT', 'RS', 'SI', 'SM', 'VA', 'XK', 'YU'),
+    '053' => set('AU', 'NF', 'NZ'),
+    '054' => set('FJ', 'NC', 'PG', 'SB', 'VU'),
+    '057' => set('FM', 'GU', 'KI', 'MH', 'MP', 'NR', 'PW'),
+    '061' => set('AS', 'CK', 'NU', 'PF', 'PN', 'TK', 'TO', 'TV', 'WF', 'WS'),
+    '143' => set('KG', 'KZ', 'TJ', 'TM', 'UZ'),
+    '145' => set('AE', 'AM', 'AZ', 'BH', 'CY', 'GE', 'IL', 'IQ', 'JO', 'KW', 'LB', 'NT', 'OM', 'PS', 'QA', 'SA', 'SY', 'TR', 'YD', 'YE'),
+    '151' => set('BG', 'BY', 'CZ', 'HU', 'MD', 'PL', 'RO', 'RU', 'SK', 'SU', 'UA'),
+    '154' => set('AX', 'DK', 'EE', 'FI', 'FO', 'GB', 'GG', 'IE', 'IM', 'IS', 'JE', 'LT', 'LV', 'NO', 'SE', 'SJ'),
+    '155' => set('AT', 'BE', 'CH', 'DD', 'DE', 'FR', 'FX', 'LI', 'LU', 'MC', 'NL'),
+    'EU'  => set('AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GB', 'GR', 'HR', 'HU', 'IE', 'IT', 'LT', 'LU', 'LV', 'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK'),
+    'QO'  => set('AC', 'AQ', 'BV', 'CC', 'CP', 'CX', 'DG', 'GS', 'HM', 'IO', 'TA', 'TF', 'UM'),
 );
 
 # codes excluded from country list due to being deprecated or grouping container
-my $noncountries = set <
-    AN BU CS DD FX NT SU TP YD YU ZR
-    EU QO
->;
+my $noncountries = set('AN', 'BU', 'CS', 'DD', 'FX', 'NT', 'SU', 'TP', 'YD', 'YU', 'ZR', 'EU', 'QO');
 
 # deprecated aliases
 my %alias_of = :QU<EU>, :UK<GB>;
@@ -68,14 +65,14 @@ sub coerce_region ($region) {
 method !children () {
     $!children //= do {
         my sub build_children (@regions) {
-            @regions.map: {
+            @regions.map({
                 $^region,
                 %children_of{$^region}:exists
                     ?? build_children(%children_of{$^region}.keys)
                     !! ()
-            }
+            }).flat;
         }
-
+        
         build_children(@!includes) (-) build_children(@!excludes);
     };
 
@@ -85,10 +82,10 @@ method !children () {
 method !parents () {
     $!parents //= do {
         my sub build_parents (@regions) {
-            @regions.map: {
+            @regions.map({
                 $^region,
                 build_parents(%children_of.grep( *.value ∋ $^region )».key)
-            }
+            }).flat.eager;
         }
 
         my %count;
@@ -101,17 +98,19 @@ method !parents () {
 }
 
 method contains ($region) {
+    
     return self!children ∋ coerce_region($region);
 }
 
 method is-within ($region) {
+    
     return self!parents ∋ coerce_region($region);
 }
 
 method countries () {
     $!countries //= self!children.keys.grep({
         /<[A..Z]>/ && $_ ∉ $noncountries
-    }).sort;
+    }).sort.cache;
 
     return $!countries.values;
 }
